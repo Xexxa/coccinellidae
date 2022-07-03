@@ -21,7 +21,7 @@ ErrorOr<int> serenity_main(Main::Arguments arguments)
 
     String url;
     Core::ArgsParser args_parser;
-    args_parser.set_general_help("The Ladybird web browser :^)");
+    args_parser.set_general_help("The Coccinellidae web browser :^)");
     args_parser.add_positional_argument(url, "URL to open", "url", Core::ArgsParser::Required::No);
     args_parser.parse(arguments);
 
@@ -29,7 +29,7 @@ ErrorOr<int> serenity_main(Main::Arguments arguments)
 
     QApplication app(arguments.argc, arguments.argv);
     BrowserWindow window;
-    window.setWindowTitle("Ladybird");
+    window.setWindowTitle("Coccinellidae");
     window.resize(800, 600);
     window.show();
 
