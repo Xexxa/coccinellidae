@@ -23,12 +23,13 @@ public:
 
     WebView& view() { return *m_view; }
 
-    void navigate(QString const&);
+    void navigate(QString);
 
     void debug_request(String const& request, String const& argument);
 
 public slots:
     void location_edit_return_pressed();
+    void search_edit_return_pressed();
     void page_title_changed(QString);
     void page_favicon_changed(QIcon);
     void back();
@@ -43,7 +44,9 @@ signals:
 private:
     QBoxLayout* m_layout;
     QToolBar* m_toolbar { nullptr };
+    QToolBar* m_toolbar_buttons { nullptr };
     QLineEdit* m_location_edit { nullptr };
+    QLineEdit* m_search_edit { nullptr };
     WebView* m_view { nullptr };
     QMainWindow* m_window { nullptr };
     Browser::History m_history;

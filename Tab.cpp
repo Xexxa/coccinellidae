@@ -10,6 +10,7 @@
 #include "History.h"
 #include <QCoreApplication>
 #include <QStatusBar>
+#include <QLabel>
 
 extern String s_serenity_resource_root;
 
@@ -18,15 +19,26 @@ Tab::Tab(QMainWindow* window)
 {
     m_layout = new QBoxLayout(QBoxLayout::Direction::TopToBottom, this);
     m_layout->setContentsMargins(0, 0, 0, 0);
+    m_layout->setSpacing(0);
 
     m_view = new WebView;
     m_toolbar = new QToolBar;
+    m_toolbar_buttons = new QToolBar;
+    m_toolbar_buttons->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
     m_location_edit = new QLineEdit;
+    m_search_edit = new QLineEdit;
+    m_search_edit->setFixedWidth(150);
+    m_search_edit->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Maximum);
 
     auto* focus_location_edit_action = new QAction("Edit Location");
     focus_location_edit_action->setShortcut(QKeySequence("Ctrl+L"));
     addAction(focus_location_edit_action);
 
+    auto* focus_search_edit_action = new QAction("Edit Location");
+    focus_search_edit_action->setShortcut(QKeySequence("Ctrl+K"));
+    addAction(focus_search_edit_action);
+
+    m_layout->addWidget(m_toolbar_buttons);
     m_layout->addWidget(m_toolbar);
     m_layout->addWidget(m_view);
 
@@ -42,11 +54,17 @@ Tab::Tab(QMainWindow* window)
     m_reload_action = make<QAction>(QIcon(reload_icon_path), "Reload");
     m_reload_action->setShortcut(QKeySequence("Ctrl+R"));
 
-    m_toolbar->addAction(m_back_action);
-    m_toolbar->addAction(m_forward_action);
-    m_toolbar->addAction(m_reload_action);
-    m_toolbar->addAction(m_home_action);
+    auto m_location_label = new QLabel("Location: ");
+    auto m_search_label = new QLabel("  Search: ");
+
+    m_toolbar_buttons->addAction(m_back_action);
+    m_toolbar_buttons->addAction(m_forward_action);
+    m_toolbar_buttons->addAction(m_reload_action);
+    m_toolbar_buttons->addAction(m_home_action);
+    m_toolbar->addWidget(m_location_label);
     m_toolbar->addWidget(m_location_edit);
+    m_toolbar->addWidget(m_search_label);
+    m_toolbar->addWidget(m_search_edit);
 
     QObject::connect(m_view, &WebView::linkUnhovered, m_window->statusBar(), &QStatusBar::clearMessage);
 
@@ -56,6 +74,7 @@ Tab::Tab(QMainWindow* window)
     });
 
     QObject::connect(m_location_edit, &QLineEdit::returnPressed, this, &Tab::location_edit_return_pressed);
+    QObject::connect(m_search_edit, &QLineEdit::returnPressed, this, &Tab::search_edit_return_pressed);
     QObject::connect(m_view, &WebView::title_changed, this, &Tab::page_title_changed);
     QObject::connect(m_view, &WebView::favicon_changed, this, &Tab::page_favicon_changed);
 
@@ -65,10 +84,15 @@ Tab::Tab(QMainWindow* window)
     QObject::connect(m_reload_action, &QAction::triggered, this, &Tab::reload);
     QObject::connect(focus_location_edit_action, &QAction::triggered, m_location_edit, qOverload<>(&QWidget::setFocus));
     QObject::connect(focus_location_edit_action, &QAction::triggered, m_location_edit, &QLineEdit::selectAll);
+    QObject::connect(focus_search_edit_action, &QAction::triggered, m_search_edit, qOverload<>(&QWidget::setFocus));
+    QObject::connect(focus_search_edit_action, &QAction::triggered, m_search_edit, &QLineEdit::selectAll);
 }
 
-void Tab::navigate(QString const& url)
+void Tab::navigate(QString url)
 {
+    if (!url.startsWith("http://", Qt::CaseInsensitive) &&
+        !url.startsWith("https://", Qt::CaseInsensitive))
+        url = "https://" + url;
     view().load(url.toUtf8().data());
 }
 
@@ -103,6 +127,14 @@ void Tab::reload()
 void Tab::location_edit_return_pressed()
 {
     navigate(m_location_edit->text());
+}
+
+void Tab::search_edit_return_pressed()
+{
+    QString user_input = m_search_edit->text();
+    user_input.prepend("https://search.brave.com/search?q=");
+
+    navigate(user_input);
 }
 
 void Tab::page_title_changed(QString title)

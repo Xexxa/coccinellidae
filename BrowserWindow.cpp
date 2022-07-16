@@ -34,7 +34,7 @@ BrowserWindow::BrowserWindow(Core::EventLoop& event_loop)
     quit_action->setShortcut(QKeySequence("Ctrl+Q"));
     menu->addAction(quit_action);
 
-    auto* inspect_menu = menuBar()->addMenu("&Inspect");
+    auto* inspect_menu = menuBar()->addMenu("&View");
 
     auto* view_source_action = new QAction("View &Source");
     view_source_action->setIcon(QIcon(QString("%1/res/icons/16x16/filetype-html.png").arg(s_serenity_resource_root.characters())));
@@ -148,6 +148,14 @@ BrowserWindow::BrowserWindow(Core::EventLoop& event_loop)
         debug_request("same-origin-policy", state ? "on" : "off");
     });
 
+    auto* about_menu = menuBar()->addMenu("&About");
+
+    auto* help_action = new QAction("&Help");
+    about_menu->addAction(help_action);
+
+    auto* about_action = new QAction("&About Coccinellidae");
+    about_menu->addAction(about_action);
+
     QObject::connect(new_tab_action, &QAction::triggered, this, &BrowserWindow::new_tab);
     QObject::connect(quit_action, &QAction::triggered, this, &QMainWindow::close);
     QObject::connect(m_tabs_container, &QTabWidget::currentChanged, [this](int index) {
@@ -159,6 +167,8 @@ BrowserWindow::BrowserWindow(Core::EventLoop& event_loop)
     new_tab();
 
     setCentralWidget(m_tabs_container);
+    
+
 }
 
 void BrowserWindow::debug_request(String const& request, String const& argument)
