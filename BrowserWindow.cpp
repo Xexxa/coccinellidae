@@ -40,16 +40,19 @@ BrowserWindow::BrowserWindow(Core::EventLoop& event_loop)
     auto* cut_action = new QAction("Cut");
     cut_action->setIcon(QIcon(QString("%1/res/icons/16x16/edit-cut.png").arg(s_serenity_resource_root.characters())));
     cut_action->setShortcut(QKeySequence(QKeySequence::Cut));
+    cut_action->setEnabled(false);
     edit_menu->addAction(cut_action);
 
     auto* copy_action = new QAction("Copy");
     copy_action->setIcon(QIcon(QString("%1/res/icons/16x16/edit-copy.png").arg(s_serenity_resource_root.characters())));
     copy_action->setShortcut(QKeySequence(QKeySequence::Copy));
+    copy_action->setEnabled(false);
     edit_menu->addAction(copy_action);
 
     auto* paste_action = new QAction("Paste");
     paste_action->setIcon(QIcon(QString("%1/res/icons/16x16/paste.png").arg(s_serenity_resource_root.characters())));
     paste_action->setShortcut(QKeySequence(QKeySequence::Paste));
+    paste_action->setEnabled(false);
     edit_menu->addAction(paste_action);
 
     auto* inspect_menu = menuBar()->addMenu("&View");
