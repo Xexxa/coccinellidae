@@ -30,7 +30,7 @@ ErrorOr<int> serenity_main(Main::Arguments arguments)
     QApplication app(arguments.argc, arguments.argv);
     BrowserWindow window(event_loop);
     window.setWindowTitle("Coccinellidae");
-    //window.resize(800, 600);
+    window.resize(800, 600);
     //window.show();
     window.showMaximized();
 

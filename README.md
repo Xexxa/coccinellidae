@@ -1,4 +1,4 @@
-# coccinellidae
+# Coccinellidae Web Browser
 The Coccinellidae web browser. The goal is to create a traditional browser UI (how things was before Chrome).
 
 This is a fork of [Ladybird](https://github.com/awesomekling/ladybird).
@@ -20,6 +20,11 @@ Menu:
 - [x] About
 - [ ] About: Help
 - [ ] About: About Coccinellidae
+- [x] Edit
+- [ ] Edit: Cut
+- [ ] Edit: Copy
+- [ ] Edit: Paste
+- [ ] Edit: Select All
 
 ### Build instructions
 Same as [Ladybird](https://github.com/awesomekling/ladybird) but using Qt5 & Qt5 Wayland (Ubuntu 20.04: `qt5-default` & `qtwayland5`)

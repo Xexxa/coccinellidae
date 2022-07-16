@@ -37,30 +37,38 @@ BrowserWindow::BrowserWindow(Core::EventLoop& event_loop)
 
     auto* edit_menu = menuBar()->addMenu("&Edit");
 
-    auto* cut_action = new QAction("Cut");
+    auto* cut_action = new QAction("Cu&t");
     cut_action->setIcon(QIcon(QString("%1/res/icons/16x16/edit-cut.png").arg(s_serenity_resource_root.characters())));
-    cut_action->setShortcut(QKeySequence(QKeySequence::Cut));
+    cut_action->setShortcut(QKeySequence(QKeySequence::Cut)); // "Ctrl+X"
     cut_action->setEnabled(false);
     edit_menu->addAction(cut_action);
 
-    auto* copy_action = new QAction("Copy");
+    auto* copy_action = new QAction("&Copy");
     copy_action->setIcon(QIcon(QString("%1/res/icons/16x16/edit-copy.png").arg(s_serenity_resource_root.characters())));
-    copy_action->setShortcut(QKeySequence(QKeySequence::Copy));
+    copy_action->setShortcut(QKeySequence(QKeySequence::Copy)); // "Ctrl+C"
     copy_action->setEnabled(false);
     edit_menu->addAction(copy_action);
 
-    auto* paste_action = new QAction("Paste");
+    auto* paste_action = new QAction("&Paste");
     paste_action->setIcon(QIcon(QString("%1/res/icons/16x16/paste.png").arg(s_serenity_resource_root.characters())));
-    paste_action->setShortcut(QKeySequence(QKeySequence::Paste));
+    paste_action->setShortcut(QKeySequence(QKeySequence::Paste)); // "Ctrl+V"
     paste_action->setEnabled(false);
     edit_menu->addAction(paste_action);
 
-    auto* inspect_menu = menuBar()->addMenu("&View");
+    edit_menu->addSeparator();
+
+    auto* select_all_action = new QAction("Select &All");
+    select_all_action->setIcon(QIcon(QString("%1/res/icons/16x16/select-all.png").arg(s_serenity_resource_root.characters())));
+    select_all_action->setShortcut(QKeySequence(QKeySequence::SelectAll)); // "Ctrl+A"
+    select_all_action->setEnabled(false);
+    edit_menu->addAction(select_all_action);
+
+    auto* view_menu = menuBar()->addMenu("&View");
 
     auto* view_source_action = new QAction("View &Source");
     view_source_action->setIcon(QIcon(QString("%1/res/icons/16x16/filetype-html.png").arg(s_serenity_resource_root.characters())));
-    view_source_action->setShortcut(QKeySequence("CTRL+U"));
-    inspect_menu->addAction(view_source_action);
+    view_source_action->setShortcut(QKeySequence("Ctrl+U"));
+    view_menu->addAction(view_source_action);
     QObject::connect(view_source_action, &QAction::triggered, this, [this] {
         if (m_current_tab) {
             auto source = m_current_tab->view().source();
@@ -73,89 +81,108 @@ BrowserWindow::BrowserWindow(Core::EventLoop& event_loop)
         }
     });
 
-    auto* debug_menu = menuBar()->addMenu("&Debug");
+    auto* go_menu = menuBar()->addMenu("&Go");
+
+    auto* back_action = new QAction("Back");
+    back_action->setIcon(QIcon(QString("%1/res/icons/16x16/go-back.png").arg(s_serenity_resource_root.characters())));
+    back_action->setShortcut(QKeySequence(QKeySequence::Back)); // "Alt+Left"
+    back_action->setEnabled(false);
+    go_menu->addAction(back_action);
+
+    auto* forward_action = new QAction("Forward");
+    forward_action->setIcon(QIcon(QString("%1/res/icons/16x16/go-forward.png").arg(s_serenity_resource_root.characters())));
+    forward_action->setShortcut(QKeySequence(QKeySequence::Forward)); // "Alt+Right"
+    forward_action->setEnabled(false);
+    go_menu->addAction(forward_action);
+
+    auto* home_action = new QAction("Home");
+    home_action->setIcon(QIcon(QString("%1/res/icons/16x16/go-home.png").arg(s_serenity_resource_root.characters())));
+    home_action->setEnabled(false);
+    go_menu->addAction(home_action);
+
+    auto* options_menu = menuBar()->addMenu("&Options");
 
     auto* dump_dom_tree_action = new QAction("Dump DOM Tree");
     dump_dom_tree_action->setIcon(QIcon(QString("%1/res/icons/browser/dom-tree.png").arg(s_serenity_resource_root.characters())));
-    debug_menu->addAction(dump_dom_tree_action);
+    options_menu->addAction(dump_dom_tree_action);
     QObject::connect(dump_dom_tree_action, &QAction::triggered, this, [this] {
         debug_request("dump-dom-tree");
     });
 
     auto* dump_layout_tree_action = new QAction("Dump Layout Tree");
     dump_layout_tree_action->setIcon(QIcon(QString("%1/res/icons/16x16/layout.png").arg(s_serenity_resource_root.characters())));
-    debug_menu->addAction(dump_layout_tree_action);
+    options_menu->addAction(dump_layout_tree_action);
     QObject::connect(dump_layout_tree_action, &QAction::triggered, this, [this] {
         debug_request("dump-layout-tree");
     });
 
     auto* dump_stacking_context_tree_action = new QAction("Dump Stacking Context Tree");
     dump_stacking_context_tree_action->setIcon(QIcon(QString("%1/res/icons/16x16/layers.png").arg(s_serenity_resource_root.characters())));
-    debug_menu->addAction(dump_stacking_context_tree_action);
+    options_menu->addAction(dump_stacking_context_tree_action);
     QObject::connect(dump_stacking_context_tree_action, &QAction::triggered, this, [this] {
         debug_request("dump-stacking-context-tree");
     });
 
     auto* dump_style_sheets_action = new QAction("Dump Style Sheets");
     dump_style_sheets_action->setIcon(QIcon(QString("%1/res/icons/16x16/filetype-css.png").arg(s_serenity_resource_root.characters())));
-    debug_menu->addAction(dump_style_sheets_action);
+    options_menu->addAction(dump_style_sheets_action);
     QObject::connect(dump_style_sheets_action, &QAction::triggered, this, [this] {
         debug_request("dump-style-sheets");
     });
 
     auto* dump_history_action = new QAction("Dump History");
     dump_history_action->setIcon(QIcon(QString("%1/res/icons/16x16/history.png").arg(s_serenity_resource_root.characters())));
-    debug_menu->addAction(dump_history_action);
+    options_menu->addAction(dump_history_action);
     QObject::connect(dump_history_action, &QAction::triggered, this, [this] {
         debug_request("dump-history");
     });
 
     auto* dump_cookies_action = new QAction("Dump Cookies");
     dump_cookies_action->setIcon(QIcon(QString("%1/res/icons/browser/cookie.png").arg(s_serenity_resource_root.characters())));
-    debug_menu->addAction(dump_cookies_action);
+    options_menu->addAction(dump_cookies_action);
     QObject::connect(dump_cookies_action, &QAction::triggered, this, [this] {
         debug_request("dump-cookies");
     });
 
     auto* dump_local_storage_action = new QAction("Dump Local Storage");
     dump_local_storage_action->setIcon(QIcon(QString("%1/res/icons/browser/local-storage.png").arg(s_serenity_resource_root.characters())));
-    debug_menu->addAction(dump_local_storage_action);
+    options_menu->addAction(dump_local_storage_action);
     QObject::connect(dump_local_storage_action, &QAction::triggered, this, [this] {
         debug_request("dump-local-storage");
     });
 
-    debug_menu->addSeparator();
+    options_menu->addSeparator();
 
     auto* show_line_box_borders_action = new QAction("Show Line Box Borders");
     show_line_box_borders_action->setCheckable(true);
-    debug_menu->addAction(show_line_box_borders_action);
+    options_menu->addAction(show_line_box_borders_action);
     QObject::connect(show_line_box_borders_action, &QAction::triggered, this, [this, show_line_box_borders_action] {
         bool state = show_line_box_borders_action->isChecked();
         debug_request("set-line-box-borders", state ? "on" : "off");
     });
 
-    debug_menu->addSeparator();
+    options_menu->addSeparator();
 
     auto* collect_garbage_action = new QAction("Collect Garbage!!");
     collect_garbage_action->setIcon(QIcon(QString("%1/res/icons/16x16/trash-can.png").arg(s_serenity_resource_root.characters())));
-    debug_menu->addAction(collect_garbage_action);
+    options_menu->addAction(collect_garbage_action);
     QObject::connect(collect_garbage_action, &QAction::triggered, this, [this] {
         debug_request("collect-garbage");
     });
 
     auto* clear_cache_action = new QAction("Clear Cache");
     clear_cache_action->setIcon(QIcon(QString("%1/res/icons/browser/clear-cache.png").arg(s_serenity_resource_root.characters())));
-    debug_menu->addAction(clear_cache_action);
+    options_menu->addAction(clear_cache_action);
     QObject::connect(clear_cache_action, &QAction::triggered, this, [this] {
         debug_request("clear-cache");
     });
 
-    debug_menu->addSeparator();
+    options_menu->addSeparator();
 
     auto* enable_scripting_action = new QAction("Enable Scripting");
     enable_scripting_action->setCheckable(true);
     enable_scripting_action->setChecked(true);
-    debug_menu->addAction(enable_scripting_action);
+    options_menu->addAction(enable_scripting_action);
     QObject::connect(enable_scripting_action, &QAction::triggered, this, [this, enable_scripting_action] {
         bool state = enable_scripting_action->isChecked();
         debug_request("scripting", state ? "on" : "off");
@@ -163,22 +190,24 @@ BrowserWindow::BrowserWindow(Core::EventLoop& event_loop)
 
     auto* enable_same_origin_policy_action = new QAction("Enable Same-Origin Policy");
     enable_same_origin_policy_action->setCheckable(true);
-    debug_menu->addAction(enable_same_origin_policy_action);
+    options_menu->addAction(enable_same_origin_policy_action);
     QObject::connect(enable_same_origin_policy_action, &QAction::triggered, this, [this, enable_same_origin_policy_action] {
         bool state = enable_same_origin_policy_action->isChecked();
         debug_request("same-origin-policy", state ? "on" : "off");
     });
 
-    auto* about_menu = menuBar()->addMenu("&About");
+    auto* help_menu = menuBar()->addMenu("&Help");
 
     auto* help_action = new QAction("&Help");
     help_action->setIcon(QIcon(QString("%1/res/icons/16x16/app-help.png").arg(s_serenity_resource_root.characters())));
     help_action->setShortcut(QKeySequence(QKeySequence::HelpContents));
-    about_menu->addAction(help_action);
+    help_action->setEnabled(false);
+    help_menu->addAction(help_action);
 
     auto* about_action = new QAction("&About Coccinellidae");
     about_action->setIcon(QIcon(QString("../icons/app-coccinellidae.png")));
-    about_menu->addAction(about_action);
+    about_action->setEnabled(false);
+    help_menu->addAction(about_action);
 
 
 
