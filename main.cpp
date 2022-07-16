@@ -21,7 +21,7 @@ ErrorOr<int> serenity_main(Main::Arguments arguments)
 
     String url;
     Core::ArgsParser args_parser;
-    args_parser.set_general_help("The Coccinellidae web browser :^)");
+    args_parser.set_general_help("The Coccinellidae web browser");
     args_parser.add_positional_argument(url, "URL to open", "url", Core::ArgsParser::Required::No);
     args_parser.parse(arguments);
 
@@ -30,8 +30,10 @@ ErrorOr<int> serenity_main(Main::Arguments arguments)
     QApplication app(arguments.argc, arguments.argv);
     BrowserWindow window(event_loop);
     window.setWindowTitle("Coccinellidae");
-    window.resize(800, 600);
-    window.show();
+    //window.resize(800, 600);
+    //window.show();
+    window.showMaximized();
+
 
     auto qt_event_loop_driver = Core::Timer::create_repeating(50, [&] {
         app.processEvents();

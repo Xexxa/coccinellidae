@@ -27,7 +27,7 @@ BrowserWindow::BrowserWindow(Core::EventLoop& event_loop)
     auto* menu = menuBar()->addMenu("&File");
 
     auto* new_tab_action = new QAction("New &Tab");
-    new_tab_action->setShortcut(QKeySequence("Ctrl+T"));
+    new_tab_action->setShortcut(QKeySequence(QKeySequence::AddTab)); // "Ctrl+N"
     menu->addAction(new_tab_action);
 
     auto* quit_action = new QAction("&Quit");
@@ -38,7 +38,7 @@ BrowserWindow::BrowserWindow(Core::EventLoop& event_loop)
 
     auto* view_source_action = new QAction("View &Source");
     view_source_action->setIcon(QIcon(QString("%1/res/icons/16x16/filetype-html.png").arg(s_serenity_resource_root.characters())));
-    view_source_action->setShortcut(QKeySequence("CTRL + U"));
+    view_source_action->setShortcut(QKeySequence("CTRL+U"));
     inspect_menu->addAction(view_source_action);
     QObject::connect(view_source_action, &QAction::triggered, this, [this] {
         if (m_current_tab) {
@@ -151,10 +151,14 @@ BrowserWindow::BrowserWindow(Core::EventLoop& event_loop)
     auto* about_menu = menuBar()->addMenu("&About");
 
     auto* help_action = new QAction("&Help");
+    help_action->setIcon(QIcon(QString("%1/res/icons/16x16/app-help.png").arg(s_serenity_resource_root.characters())));
+    help_action->setShortcut(QKeySequence(QKeySequence::HelpContents));
     about_menu->addAction(help_action);
 
     auto* about_action = new QAction("&About Coccinellidae");
     about_menu->addAction(about_action);
+
+
 
     QObject::connect(new_tab_action, &QAction::triggered, this, &BrowserWindow::new_tab);
     QObject::connect(quit_action, &QAction::triggered, this, &QMainWindow::close);

@@ -7,11 +7,13 @@ This is a personal fork for my own enjoyment and learning :^)
 
 Hardcoded for qt5 until I get an environment that can run qt6.
 
-How does Coccinellidae differ from Ladybird?
-- [x] Separate search field (Default search engine Brave)
+### How does Coccinellidae differ from Ladybird?
+- [x] Search field (Default search engine Brave)
 - [x] Statusbar
 - [ ] Large fancy buttons
 - [ ] Tabs above content (not above toolbar)
+- [x] Starting maximized
+- [x] Platform independent shortcuts (QKeySequence::StandardKey)
 
 Menu:
 - [x] Inspect -> View
@@ -19,7 +21,8 @@ Menu:
 - [ ] About: Help
 - [ ] About: About Coccinellidae
 
-This is what I'm going for:
+### This is what I'm going for:
+
 ![Icons](meta/icons.png)
 
 Commits are a bit of a mess, contributions are accepted.

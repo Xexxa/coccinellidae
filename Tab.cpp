@@ -19,7 +19,7 @@ Tab::Tab(QMainWindow* window)
 {
     m_layout = new QBoxLayout(QBoxLayout::Direction::TopToBottom, this);
     m_layout->setContentsMargins(0, 0, 0, 0);
-    m_layout->setSpacing(0);
+    m_layout->setSpacing(0); //FIXME: Need to set spacing to 0 between QToolBar & QToolBar :^)
 
     m_view = new WebView;
     m_toolbar = new QToolBar;
@@ -40,27 +40,29 @@ Tab::Tab(QMainWindow* window)
 
     m_layout->addWidget(m_toolbar_buttons);
     m_layout->addWidget(m_toolbar);
+    m_layout->addSpacing(5);
     m_layout->addWidget(m_view);
 
-    auto back_icon_path = QString("%1/res/icons/16x16/go-back.png").arg(s_serenity_resource_root.characters());
-    auto forward_icon_path = QString("%1/res/icons/16x16/go-forward.png").arg(s_serenity_resource_root.characters());
-    auto home_icon_path = QString("%1/res/icons/16x16/go-home.png").arg(s_serenity_resource_root.characters());
-    auto reload_icon_path = QString("%1/res/icons/16x16/reload.png").arg(s_serenity_resource_root.characters());
+    auto back_icon_path = QString("../icons/back.png");
+    auto forward_icon_path = QString("../icons/forward.png");
+    auto home_icon_path = QString("../icons/home.png");
+    //auto reload_icon_path = QString("%1/res/icons/16x16/reload.png").arg(s_serenity_resource_root.characters());
+    auto reload_icon_path = QString("../icons/reload.png");
     m_back_action = make<QAction>(QIcon(back_icon_path), "Back");
-    m_back_action->setShortcut(QKeySequence("Alt+Left"));
+    m_back_action->setShortcut(QKeySequence(QKeySequence::Back)); // "Alt+Left"
     m_forward_action = make<QAction>(QIcon(forward_icon_path), "Forward");
-    m_forward_action->setShortcut(QKeySequence("Alt+Right"));
+    m_forward_action->setShortcut(QKeySequence(QKeySequence::Forward)); // "Alt+Right"
     m_home_action = make<QAction>(QIcon(home_icon_path), "Home");
     m_reload_action = make<QAction>(QIcon(reload_icon_path), "Reload");
-    m_reload_action->setShortcut(QKeySequence("Ctrl+R"));
+    m_reload_action->setShortcut(QKeySequence(QKeySequence::Refresh)); // "Ctrl+R"
 
     auto m_location_label = new QLabel("Location: ");
     auto m_search_label = new QLabel("  Search: ");
 
     m_toolbar_buttons->addAction(m_back_action);
     m_toolbar_buttons->addAction(m_forward_action);
-    m_toolbar_buttons->addAction(m_reload_action);
     m_toolbar_buttons->addAction(m_home_action);
+    m_toolbar_buttons->addAction(m_reload_action);
     m_toolbar->addWidget(m_location_label);
     m_toolbar->addWidget(m_location_edit);
     m_toolbar->addWidget(m_search_label);
