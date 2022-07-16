@@ -31,6 +31,11 @@ BrowserWindow::BrowserWindow(Core::EventLoop& event_loop)
     new_tab_action->setShortcut(QKeySequence(QKeySequence::AddTab)); // "Ctrl+N"
     menu->addAction(new_tab_action);
 
+    auto* close_current_tab_action = new QAction("&Close Tab");
+    close_current_tab_action->setIcon(QIcon(QString("%1/res/icons/16x16/close-tab.png").arg(s_serenity_resource_root.characters())));
+    close_current_tab_action->setShortcut(QKeySequence(QKeySequence::Close));
+    menu->addAction(close_current_tab_action);
+
     auto* quit_action = new QAction("&Quit");
     quit_action->setShortcut(QKeySequence("Ctrl+Q"));
     menu->addAction(quit_action);
@@ -219,6 +224,8 @@ BrowserWindow::BrowserWindow(Core::EventLoop& event_loop)
     });
     QObject::connect(m_tabs_container, &QTabWidget::tabCloseRequested, this, &BrowserWindow::close_tab);
 
+    QObject::connect(close_current_tab_action, &QAction::triggered, this, &BrowserWindow::close_current_tab);
+
     new_tab();
 
     setCentralWidget(m_tabs_container);
@@ -263,6 +270,15 @@ void BrowserWindow::close_tab(int index)
 
     if (m_tabs_container->count() <= 1)
         m_tabs_bar->hide();
+}
+
+void BrowserWindow::close_current_tab()
+{
+    auto count = m_tabs_container->count() - 1;
+    if (!count)
+        close();
+    else
+        close_tab(m_tabs_container->currentIndex());
 }
 
 int BrowserWindow::tab_index(Tab* tab)
