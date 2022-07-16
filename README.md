@@ -21,6 +21,9 @@ Menu:
 - [ ] About: Help
 - [ ] About: About Coccinellidae
 
+### Build instructions
+Same as [Ladybird](https://github.com/awesomekling/ladybird) but using Qt5 & Qt5 Wayland (Ubuntu 20.04: `qt5-default` & `qtwayland5`)
+
 ### This is what I'm going for:
 
 ![Icons](meta/icons.png)

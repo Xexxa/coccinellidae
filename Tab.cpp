@@ -19,7 +19,7 @@ Tab::Tab(QMainWindow* window)
 {
     m_layout = new QBoxLayout(QBoxLayout::Direction::TopToBottom, this);
     m_layout->setContentsMargins(0, 0, 0, 0);
-    m_layout->setSpacing(0); //FIXME: Need to set spacing to 0 between QToolBar & QToolBar :^)
+    m_layout->setSpacing(0);
 
     m_view = new WebView;
     m_toolbar = new QToolBar;

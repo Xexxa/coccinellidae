@@ -27,12 +27,30 @@ BrowserWindow::BrowserWindow(Core::EventLoop& event_loop)
     auto* menu = menuBar()->addMenu("&File");
 
     auto* new_tab_action = new QAction("New &Tab");
+    new_tab_action->setIcon(QIcon(QString("%1/res/icons/16x16/new-tab.png").arg(s_serenity_resource_root.characters())));
     new_tab_action->setShortcut(QKeySequence(QKeySequence::AddTab)); // "Ctrl+N"
     menu->addAction(new_tab_action);
 
     auto* quit_action = new QAction("&Quit");
     quit_action->setShortcut(QKeySequence("Ctrl+Q"));
     menu->addAction(quit_action);
+
+    auto* edit_menu = menuBar()->addMenu("&Edit");
+
+    auto* cut_action = new QAction("Cut");
+    cut_action->setIcon(QIcon(QString("%1/res/icons/16x16/edit-cut.png").arg(s_serenity_resource_root.characters())));
+    cut_action->setShortcut(QKeySequence(QKeySequence::Cut));
+    edit_menu->addAction(cut_action);
+
+    auto* copy_action = new QAction("Copy");
+    copy_action->setIcon(QIcon(QString("%1/res/icons/16x16/edit-copy.png").arg(s_serenity_resource_root.characters())));
+    copy_action->setShortcut(QKeySequence(QKeySequence::Copy));
+    edit_menu->addAction(copy_action);
+
+    auto* paste_action = new QAction("Paste");
+    paste_action->setIcon(QIcon(QString("%1/res/icons/16x16/paste.png").arg(s_serenity_resource_root.characters())));
+    paste_action->setShortcut(QKeySequence(QKeySequence::Paste));
+    edit_menu->addAction(paste_action);
 
     auto* inspect_menu = menuBar()->addMenu("&View");
 
@@ -156,6 +174,7 @@ BrowserWindow::BrowserWindow(Core::EventLoop& event_loop)
     about_menu->addAction(help_action);
 
     auto* about_action = new QAction("&About Coccinellidae");
+    about_action->setIcon(QIcon(QString("../icons/app-coccinellidae.png")));
     about_menu->addAction(about_action);
 
 
