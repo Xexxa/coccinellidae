@@ -16,15 +16,19 @@ Hardcoded for qt5 until I get an environment that can run qt6.
 - [x] Platform independent shortcuts (QKeySequence::StandardKey)
 
 Menu:
-- [x] Inspect -> View
-- [x] About
-- [ ] About: Help
-- [ ] About: About Coccinellidae
 - [x] Edit
 - [ ] Edit: Cut
 - [ ] Edit: Copy
 - [ ] Edit: Paste
 - [ ] Edit: Select All
+- [x] Inspect -> View
+- [x] Go
+- [ ] Go: Back
+- [ ] Go: Forward
+- [ ] Go: Home
+- [x] About
+- [ ] About: Help
+- [ ] About: About Coccinellidae
 
 ### Build instructions
 Same as [Ladybird](https://github.com/awesomekling/ladybird) but using Qt5 & Qt5 Wayland (Ubuntu 20.04: `qt5-default` & `qtwayland5`)
