@@ -48,6 +48,10 @@ Tab::Tab(QMainWindow* window)
     auto home_icon_path = QString("../icons/home.png");
     //auto reload_icon_path = QString("%1/res/icons/16x16/reload.png").arg(s_serenity_resource_root.characters());
     auto reload_icon_path = QString("../icons/reload.png");
+    auto open_icon_path = QString("../icons/open.png");
+    auto print_icon_path = QString("../icons/print.png");
+    auto find_icon_path = QString("../icons/find.png");
+    auto stop_icon_path = QString("../icons/stop.png");
     m_back_action = make<QAction>(QIcon(back_icon_path), "Back");
     m_back_action->setShortcut(QKeySequence(QKeySequence::Back)); // "Alt+Left"
     m_forward_action = make<QAction>(QIcon(forward_icon_path), "Forward");
@@ -55,6 +59,15 @@ Tab::Tab(QMainWindow* window)
     m_home_action = make<QAction>(QIcon(home_icon_path), "Home");
     m_reload_action = make<QAction>(QIcon(reload_icon_path), "Reload");
     m_reload_action->setShortcut(QKeySequence(QKeySequence::Refresh)); // "Ctrl+R"
+    m_open_action = make<QAction>(QIcon(open_icon_path), "Open");
+    m_open_action->setEnabled(false);
+    m_print_action = make<QAction>(QIcon(print_icon_path), "Print");
+    m_print_action->setEnabled(false);
+    m_find_action = make<QAction>(QIcon(find_icon_path), "Find");
+    m_find_action->setEnabled(false);
+    m_stop_action = make<QAction>(QIcon(stop_icon_path), "Stop");
+    m_stop_action->setEnabled(false);
+
 
     auto m_location_label = new QLabel("Location: ");
     auto m_search_label = new QLabel("  Search: ");
@@ -63,6 +76,11 @@ Tab::Tab(QMainWindow* window)
     m_toolbar_buttons->addAction(m_forward_action);
     m_toolbar_buttons->addAction(m_home_action);
     m_toolbar_buttons->addAction(m_reload_action);
+    m_toolbar_buttons->addAction(m_open_action);
+    m_toolbar_buttons->addAction(m_print_action);
+    m_toolbar_buttons->addAction(m_find_action);
+    m_toolbar_buttons->addAction(m_stop_action);
+
     m_toolbar->addWidget(m_location_label);
     m_toolbar->addWidget(m_location_edit);
     m_toolbar->addWidget(m_search_label);
