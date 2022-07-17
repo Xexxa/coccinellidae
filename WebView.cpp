@@ -50,11 +50,22 @@
 #include <LibWebSocket/WebSocket.h>
 #include <QCursor>
 #include <QIcon>
+#include <QMessageBox>
 #include <QMouseEvent>
 #include <QPaintEvent>
 #include <QPainter>
 #include <QScrollBar>
 #include <stdlib.h>
+
+AK::String akstring_from_qstring(QString const& qstring)
+{
+    return AK::String(qstring.toUtf8().data());
+}
+
+QString qstring_from_akstring(AK::String const& akstring)
+{
+    return QString::fromUtf8(akstring.characters(), akstring.length());
+}
 
 String s_serenity_resource_root = [] {
     auto const* source_dir = getenv("SERENITY_SOURCE_DIR");
@@ -258,6 +269,7 @@ public:
     {
     }
 
+/*
     virtual void page_did_request_alert(String const&) override
     {
     }
@@ -265,6 +277,20 @@ public:
     virtual bool page_did_request_confirm(String const&) override
     {
         return false;
+    }
+*/
+    virtual void page_did_request_alert(String const& message) override
+    {
+        QMessageBox::warning(&m_view, "Coccinellidae", qstring_from_akstring(message));
+    }
+
+
+    virtual bool page_did_request_confirm(String const& message) override
+    {
+        auto result = QMessageBox::question(&m_view, "Coccinellidae", qstring_from_akstring(message),
+                                            QMessageBox::StandardButton::Ok | QMessageBox::StandardButton::Cancel);
+
+        return result == QMessageBox::StandardButton::Ok;
     }
 
     virtual String page_did_request_prompt(String const&, String const&) override
