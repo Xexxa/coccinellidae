@@ -34,7 +34,7 @@ This is a personal fork for my own enjoyment and learning :^)
 - [x] Debug -> Options
 - [x] About
 - [ ] About: Help
-- [ ] About: About Coccinellidae
+- [x] About: About Coccinellidae
 
 ### Build instructions
 Same as [Ladybird](https://github.com/awesomekling/ladybird) but using Qt5 & Qt5 Wayland (Ubuntu 20.04: `qt5-default` & `qtwayland5`)

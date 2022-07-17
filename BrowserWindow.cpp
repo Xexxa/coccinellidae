@@ -10,6 +10,7 @@
 #include <LibCore/EventLoop.h>
 #include <QAction>
 #include <QPlainTextEdit>
+#include <QMessageBox>
 
 extern String s_serenity_resource_root;
 
@@ -250,10 +251,9 @@ BrowserWindow::BrowserWindow(Core::EventLoop& event_loop)
 
     auto* about_action = new QAction("&About Coccinellidae");
     about_action->setIcon(QIcon(QString("../icons/16x16/app-coccinellidae.png")));
-    about_action->setEnabled(false);
     help_menu->addAction(about_action);
 
-
+    QObject::connect(about_action, &QAction::triggered, this, &BrowserWindow::about);
 
     QObject::connect(new_tab_action, &QAction::triggered, this, &BrowserWindow::new_tab);
     QObject::connect(quit_action, &QAction::triggered, this, &QMainWindow::close);
@@ -270,6 +270,28 @@ BrowserWindow::BrowserWindow(Core::EventLoop& event_loop)
     setCentralWidget(m_tabs_container);
     
 
+}
+
+void BrowserWindow::about()
+{
+    //QMessageBox::warning(&m_tabs_bar, "Coccinellidae", "All your base");
+    QMessageBox msgBox;
+    msgBox.setWindowTitle("About Coccinellidae");
+    msgBox.setText("Coccinellidae is based on Ladybird.\n"
+                   "\n"
+                   "License: BSD-2-Clause\n"
+                   "\n"
+                   "Coccinellidae copyright (c):\n"
+                   "2022, Gegga Thor <xexxa@serenityos.org>\n"
+                   "\n"
+                   "Ladybird copyright (c):\n"
+                   "2022, the SerenityOS developers.\n"
+                   "2020, 2022 Andreas Kling <kling@serenityos.org>\n"
+                   "2022, Matthew Costa <ucosty@gmail.com>\n"
+                   "2022, Dex♪ <dexes.ttp@gmail.com>\n"
+                   "2022, Matthew Costa <ucosty@gmail.com>\n"
+                   "2021, Tim Flynn <trflynn89@serenityos.org>");
+    msgBox.exec();
 }
 
 void BrowserWindow::debug_request(String const& request, String const& argument)
