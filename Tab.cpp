@@ -136,7 +136,7 @@ void Tab::forward()
 
 void Tab::home()
 {
-    navigate("https://www.serenityos.org/");
+    navigate("https://home.coccinellidae.serenityos.net");
 }
 
 void Tab::reload()
