@@ -33,6 +33,8 @@ Menu:
 ### Build instructions
 Same as [Ladybird](https://github.com/awesomekling/ladybird) but using Qt5 & Qt5 Wayland (Ubuntu 20.04: `qt5-default` & `qtwayland5`)
 
+It might build with Qt6, make sure to replace [CMakeLists.txt](CMakeLists.txt) with [CMakeLists.qt6.txt](CMakeLists.qt6.txt) before building.
+
 ### This is what I'm going for:
 
 ![Icons](meta/icons.png)
