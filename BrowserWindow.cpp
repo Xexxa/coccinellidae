@@ -36,6 +36,24 @@ BrowserWindow::BrowserWindow(Core::EventLoop& event_loop)
     close_current_tab_action->setShortcut(QKeySequence(QKeySequence::Close));
     menu->addAction(close_current_tab_action);
 
+    menu->addSeparator();
+
+    auto* save_as_action = new QAction("&Save As");
+    save_as_action->setIcon(QIcon(QString("%1/res/icons/16x16/save-as.png").arg(s_serenity_resource_root.characters())));
+    save_as_action->setShortcut(QKeySequence(QKeySequence::Save)); // "Ctrl+S"
+    save_as_action->setEnabled(false);
+    menu->addAction(save_as_action);
+
+    menu->addSeparator();
+
+    auto* print_action = new QAction("&Print");
+    print_action->setIcon(QIcon(QString("../icons/16x16/print.png")));
+    print_action->setShortcut(QKeySequence(QKeySequence::Print)); // "Ctrl+P"
+    print_action->setEnabled(false);
+    menu->addAction(print_action);
+
+    menu->addSeparator();
+
     auto* quit_action = new QAction("&Quit");
     quit_action->setShortcut(QKeySequence("Ctrl+Q"));
     menu->addAction(quit_action);
@@ -68,6 +86,22 @@ BrowserWindow::BrowserWindow(Core::EventLoop& event_loop)
     select_all_action->setEnabled(false);
     edit_menu->addAction(select_all_action);
 
+    edit_menu->addSeparator();
+
+    auto* find_action = new QAction("&Find...");
+    find_action->setIcon(QIcon(QString("%1/res/icons/16x16/find.png").arg(s_serenity_resource_root.characters())));
+    find_action->setShortcut(QKeySequence(QKeySequence::Find)); // "Ctrl+F"
+    find_action->setEnabled(false);
+    edit_menu->addAction(find_action);
+
+    edit_menu->addSeparator();
+
+    auto* preferences_action = new QAction("Prefe&rences");
+    preferences_action->setIcon(QIcon(QString("%1/res/icons/16x16/settings.png").arg(s_serenity_resource_root.characters())));
+    preferences_action->setShortcut(QKeySequence(QKeySequence::Preferences)); // "Ctrl+, (macOS)"
+    preferences_action->setEnabled(false);
+    edit_menu->addAction(preferences_action);
+
     auto* view_menu = menuBar()->addMenu("&View");
 
     auto* view_source_action = new QAction("View &Source");
@@ -85,6 +119,11 @@ BrowserWindow::BrowserWindow(Core::EventLoop& event_loop)
             text_edit->show();
         }
     });
+
+    auto* document_info_action = new QAction("&Document Info");
+    document_info_action->setIcon(QIcon(QString("%1/res/icons/16x16/app-text-editor.png").arg(s_serenity_resource_root.characters())));
+    document_info_action->setEnabled(false);
+    view_menu->addAction(document_info_action);
 
     auto* go_menu = menuBar()->addMenu("&Go");
 
@@ -210,7 +249,7 @@ BrowserWindow::BrowserWindow(Core::EventLoop& event_loop)
     help_menu->addAction(help_action);
 
     auto* about_action = new QAction("&About Coccinellidae");
-    about_action->setIcon(QIcon(QString("../icons/app-coccinellidae.png")));
+    about_action->setIcon(QIcon(QString("../icons/16x16/app-coccinellidae.png")));
     about_action->setEnabled(false);
     help_menu->addAction(about_action);
 

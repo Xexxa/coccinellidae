@@ -605,7 +605,7 @@ void initialize_web_engine()
     Web::WebSockets::WebSocketClientManager::initialize(HeadlessWebSocketClientManager::create());
 
     //Web::FrameLoader::set_default_favicon_path(String::formatted("{}/res/icons/16x16/app-browser.png", s_serenity_resource_root));
-    Web::FrameLoader::set_default_favicon_path("../icons/app-coccinellidae-bg.png");
+    Web::FrameLoader::set_default_favicon_path("../icons/16x16/app-coccinellidae-bg.png");
 
     dbgln("Set favicon path to {}", String::formatted("{}/res/icons/16x16/app-browser.png", s_serenity_resource_root));
 
