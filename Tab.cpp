@@ -43,6 +43,9 @@ Tab::Tab(QMainWindow* window)
     m_layout->addSpacing(5);
     m_layout->addWidget(m_view);
 
+    QFont button_text_font;
+    button_text_font.setPointSize(9);
+
     auto back_icon_path = QString("../icons/back.png");
     auto forward_icon_path = QString("../icons/forward.png");
     auto home_icon_path = QString("../icons/home.png");
@@ -54,19 +57,30 @@ Tab::Tab(QMainWindow* window)
     auto stop_icon_path = QString("../icons/stop.png");
     m_back_action = make<QAction>(QIcon(back_icon_path), "Back");
     m_back_action->setShortcut(QKeySequence(QKeySequence::Back)); // "Alt+Left"
+    m_back_action->setFont(button_text_font);
     m_forward_action = make<QAction>(QIcon(forward_icon_path), "Forward");
     m_forward_action->setShortcut(QKeySequence(QKeySequence::Forward)); // "Alt+Right"
+    m_forward_action->setFont(button_text_font);
     m_home_action = make<QAction>(QIcon(home_icon_path), "Home");
+    m_home_action->setFont(button_text_font);
     m_reload_action = make<QAction>(QIcon(reload_icon_path), "Reload");
     m_reload_action->setShortcut(QKeySequence(QKeySequence::Refresh)); // "Ctrl+R"
+    m_reload_action->setFont(button_text_font);
     m_open_action = make<QAction>(QIcon(open_icon_path), "Open");
     m_open_action->setEnabled(false);
+    m_open_action->setFont(button_text_font);
     m_print_action = make<QAction>(QIcon(print_icon_path), "Print");
     m_print_action->setEnabled(false);
+    m_print_action->setFont(button_text_font);
     m_find_action = make<QAction>(QIcon(find_icon_path), "Find");
     m_find_action->setEnabled(false);
+    m_find_action->setFont(button_text_font);
     m_stop_action = make<QAction>(QIcon(stop_icon_path), "Stop");
     m_stop_action->setEnabled(false);
+    m_stop_action->setFont(button_text_font);
+
+
+
 
 
     auto m_location_label = new QLabel("Location: ");
