@@ -121,6 +121,16 @@ BrowserWindow::BrowserWindow(Core::EventLoop& event_loop)
         }
     });
 
+    auto* js_console_action = new QAction("Show &JS Console");
+    js_console_action->setIcon(QIcon(QString("%1/res/icons/16x16/filetype-javascript.png").arg(s_serenity_resource_root.characters())));
+    js_console_action->setShortcut(QKeySequence(Qt::CTRL | Qt::SHIFT | Qt::Key_J));
+    view_menu->addAction(js_console_action);
+    QObject::connect(js_console_action, &QAction::triggered, this, [this] {
+        if (m_current_tab) {
+            m_current_tab->view().show_js_console();
+        }
+    });
+
     auto* document_info_action = new QAction("&Document Info");
     document_info_action->setIcon(QIcon(QString("%1/res/icons/16x16/app-text-editor.png").arg(s_serenity_resource_root.characters())));
     document_info_action->setEnabled(false);
@@ -286,7 +296,7 @@ void BrowserWindow::about()
                    "\n"
                    "Ladybird copyright (c):\n"
                    "2022, the SerenityOS developers.\n"
-                   "2020, 2022 Andreas Kling <kling@serenityos.org>\n"
+                   "2022, Andreas Kling <kling@serenityos.org>\n"
                    "2022, Matthew Costa <ucosty@gmail.com>\n"
                    "2022, Dex♪ <dexes.ttp@gmail.com>\n"
                    "2022, Matthew Costa <ucosty@gmail.com>\n"

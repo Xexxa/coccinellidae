@@ -38,6 +38,8 @@ find_package(Qt5 COMPONENTS Core Gui Network Widgets )
 
 set(SOURCES
     BrowserWindow.cpp
+    ConsoleClient.cpp
+    ConsoleGlobalObject.cpp
     CookieJar.cpp
     RequestManagerQt.cpp
     main.cpp
