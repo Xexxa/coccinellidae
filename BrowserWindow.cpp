@@ -6,13 +6,17 @@
  */
 
 #include "BrowserWindow.h"
+#include "Settings.h"
+#include "SettingsDialog.h"
 #include "WebView.h"
 #include <LibCore/EventLoop.h>
 #include <QAction>
+#include <QDialog>
 #include <QPlainTextEdit>
 #include <QMessageBox>
 
 extern String s_serenity_resource_root;
+extern Browser::Settings* s_settings;
 
 BrowserWindow::BrowserWindow(Core::EventLoop& event_loop)
     : m_event_loop(event_loop)
@@ -100,7 +104,6 @@ BrowserWindow::BrowserWindow(Core::EventLoop& event_loop)
     auto* preferences_action = new QAction("Prefe&rences");
     preferences_action->setIcon(QIcon(QString("%1/res/icons/16x16/settings.png").arg(s_serenity_resource_root.characters())));
     preferences_action->setShortcut(QKeySequence(QKeySequence::Preferences)); // "Ctrl+, (macOS)"
-    preferences_action->setEnabled(false);
     edit_menu->addAction(preferences_action);
 
     auto* view_menu = menuBar()->addMenu("&View");
@@ -263,6 +266,9 @@ BrowserWindow::BrowserWindow(Core::EventLoop& event_loop)
     about_action->setIcon(QIcon(QString("../icons/16x16/app-coccinellidae.png")));
     help_menu->addAction(about_action);
 
+    QObject::connect(preferences_action, &QAction::triggered, this, [this] {
+        new SettingsDialog(this);
+    });
     QObject::connect(about_action, &QAction::triggered, this, &BrowserWindow::about);
 
     QObject::connect(new_tab_action, &QAction::triggered, this, &BrowserWindow::new_tab);

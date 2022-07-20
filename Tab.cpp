@@ -7,12 +7,14 @@
 
 #include "Tab.h"
 #include "BrowserWindow.h"
+#include "Settings.h"
 #include "History.h"
 #include <QCoreApplication>
 #include <QStatusBar>
 #include <QLabel>
 
 extern String s_serenity_resource_root;
+extern Browser::Settings* s_settings;
 
 Tab::Tab(QMainWindow* window)
     : m_window(window)
@@ -151,7 +153,8 @@ void Tab::forward()
 
 void Tab::home()
 {
-    navigate("https://home.coccinellidae.serenityos.net");
+    //navigate("https://home.coccinellidae.serenityos.net");
+    navigate(s_settings->homepage());
 }
 
 void Tab::reload()
