@@ -300,7 +300,11 @@ void BrowserWindow::about()
                    "2022, Matthew Costa <ucosty@gmail.com>\n"
                    "2022, Dex♪ <dexes.ttp@gmail.com>\n"
                    "2022, Matthew Costa <ucosty@gmail.com>\n"
-                   "2021, Tim Flynn <trflynn89@serenityos.org>");
+                   "2021, Tim Flynn <trflynn89@serenityos.org>\n"
+                   "2022, Filiph Sandström <filiph.sandstrom@filfatstudios.com>\n"
+                   "2021, Brandon Scott <xeon.productions@gmail.com>\n"
+                   "2020, Hunter Salyer <thefalsehonesty@gmail.com>\n"
+                   "2021, Sam Atkins <atkinssj@serenityos.org>");
     msgBox.exec();
 }
 
