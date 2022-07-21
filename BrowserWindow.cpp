@@ -111,6 +111,20 @@ BrowserWindow::BrowserWindow(Core::EventLoop& event_loop)
 
     auto* view_menu = menuBar()->addMenu("&View");
 
+    auto* zoom_in_action = new QAction("In&crease Font");
+    zoom_in_action->setIcon(QIcon(QString("%1/res/icons/16x16/zoom-in.png").arg(s_serenity_resource_root.characters())));
+    zoom_in_action->setShortcut(QKeySequence(QKeySequence::ZoomIn)); // "Ctrl+Plus"
+    zoom_in_action->setEnabled(false);
+    view_menu->addAction(zoom_in_action);
+
+    auto* zoom_out_action = new QAction("&Decrease Font");
+    zoom_out_action->setIcon(QIcon(QString("%1/res/icons/16x16/zoom-out.png").arg(s_serenity_resource_root.characters())));
+    zoom_out_action->setShortcut(QKeySequence(QKeySequence::ZoomOut)); // "Ctrl+Minus"
+    zoom_out_action->setEnabled(false);
+    view_menu->addAction(zoom_out_action);
+
+    view_menu->addSeparator();
+
     auto* view_source_action = new QAction("View &Source");
     view_source_action->setIcon(QIcon(QString("%1/res/icons/16x16/filetype-html.png").arg(s_serenity_resource_root.characters())));
     view_source_action->setShortcut(QKeySequence("Ctrl+U"));
@@ -127,6 +141,13 @@ BrowserWindow::BrowserWindow(Core::EventLoop& event_loop)
         }
     });
 
+    auto* document_info_action = new QAction("Document &Info");
+    document_info_action->setIcon(QIcon(QString("%1/res/icons/16x16/app-text-editor.png").arg(s_serenity_resource_root.characters())));
+    document_info_action->setEnabled(false);
+    view_menu->addAction(document_info_action);
+
+    view_menu->addSeparator();
+
     auto* js_console_action = new QAction("Show &JS Console");
     js_console_action->setIcon(QIcon(QString("%1/res/icons/16x16/filetype-javascript.png").arg(s_serenity_resource_root.characters())));
     js_console_action->setShortcut(QKeySequence(Qt::CTRL | Qt::SHIFT | Qt::Key_J));
@@ -137,10 +158,13 @@ BrowserWindow::BrowserWindow(Core::EventLoop& event_loop)
         }
     });
 
-    auto* document_info_action = new QAction("&Document Info");
-    document_info_action->setIcon(QIcon(QString("%1/res/icons/16x16/app-text-editor.png").arg(s_serenity_resource_root.characters())));
-    document_info_action->setEnabled(false);
-    view_menu->addAction(document_info_action);
+    view_menu->addSeparator();
+
+    auto* full_screen_action = new QAction("&Full Screen");
+    full_screen_action->setIcon(QIcon(QString("%1/res/icons/16x16/fullscreen.png").arg(s_serenity_resource_root.characters())));
+    full_screen_action->setShortcut(QKeySequence(QKeySequence::FullScreen)); // "F11"
+    full_screen_action->setEnabled(false);
+    view_menu->addAction(full_screen_action);
 
     auto* go_menu = menuBar()->addMenu("&Go");
 
