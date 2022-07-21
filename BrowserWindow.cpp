@@ -262,6 +262,11 @@ BrowserWindow::BrowserWindow(Core::EventLoop& event_loop)
     help_action->setEnabled(false);
     help_menu->addAction(help_action);
 
+    auto* repo_action = new QAction("&Repository");
+    repo_action->setIcon(QIcon(QString("../icons/16x16/website-github.png")));
+    help_menu->addAction(repo_action);
+    QObject::connect(repo_action, &QAction::triggered, this, &BrowserWindow::repo);
+
     auto* about_action = new QAction("&About Coccinellidae");
     about_action->setIcon(QIcon(QString("../icons/16x16/app-coccinellidae.png")));
     help_menu->addAction(about_action);
@@ -286,6 +291,11 @@ BrowserWindow::BrowserWindow(Core::EventLoop& event_loop)
     setCentralWidget(m_tabs_container);
     
 
+}
+
+void BrowserWindow::repo()
+{
+    m_current_tab->navigate("https://github.com/Xexxa/coccinellidae");
 }
 
 void BrowserWindow::about()

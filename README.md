@@ -34,6 +34,7 @@ This is a personal fork for my own enjoyment and learning :^)
 - [x] Debug -> Options
 - [x] About
 - [ ] About: Help
+- [x] About: Repository
 - [x] About: About Coccinellidae
 
 ### Build instructions
