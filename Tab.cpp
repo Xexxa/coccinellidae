@@ -172,6 +172,18 @@ void Tab::search_edit_return_pressed()
     QString user_input = m_search_edit->text();
     user_input.prepend("https://search.brave.com/search?q=");
 
+    /*
+     * Bing https://www.bing.com/search?q={}
+     * Brave https://search.brave.com/search?q={} (Default)
+     * Coccinellidae SerenityOS Search https://search.coccinellidae.serenityos.net/search?q=
+     * DuckDuckGo https://duckduckgo.com/?q={}
+     * FrogFind https://frogfind.com/?q={}
+     * GitHub https://github.com/search?q={}
+     * Google https://google.com/search?q={}
+     * Mojeek https://www.mojeek.com/search?q={}
+     * Yandex https://yandex.com/search/?text={}
+     */
+
     navigate(user_input);
 }
 

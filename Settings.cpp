@@ -10,7 +10,7 @@ namespace Browser {
 
 Settings::Settings()
 {
-    m_qsettings = new QSettings("Serenity", "Ladybird");
+    m_qsettings = new QSettings("Serenity", "Coccinellidae");
 }
 
 QString Settings::homepage()

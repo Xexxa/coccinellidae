@@ -37,6 +37,7 @@ public slots:
     void close_tab(int index);
     void close_current_tab();
     void about();
+    void repo();
 
 private:
     void debug_request(String const& request, String const& argument = "");
