@@ -60,9 +60,11 @@ Tab::Tab(QMainWindow* window)
     m_back_action = make<QAction>(QIcon(back_icon_path), "Back");
     m_back_action->setShortcut(QKeySequence(QKeySequence::Back)); // "Alt+Left"
     m_back_action->setFont(button_text_font);
+    m_back_action->setEnabled(false);
     m_forward_action = make<QAction>(QIcon(forward_icon_path), "Forward");
     m_forward_action->setShortcut(QKeySequence(QKeySequence::Forward)); // "Alt+Right"
     m_forward_action->setFont(button_text_font);
+    m_forward_action->setEnabled(false);
     m_home_action = make<QAction>(QIcon(home_icon_path), "Home");
     m_home_action->setFont(button_text_font);
     m_reload_action = make<QAction>(QIcon(reload_icon_path), "Reload");
@@ -107,6 +109,19 @@ Tab::Tab(QMainWindow* window)
     QObject::connect(m_view, &WebView::loadStarted, [this](const URL& url) {
         m_location_edit->setText(url.to_string().characters());
         m_history.push(url, m_title.toUtf8().data());
+
+        // Update buttons everytime on navigation!
+        if (!m_history.can_go_back()) {
+            m_back_action->setEnabled(false);
+        } else {
+            m_back_action->setEnabled(true);
+        }
+
+        if (!m_history.can_go_forward()) {
+            m_forward_action->setEnabled(false);
+        } else {
+            m_forward_action->setEnabled(true);
+        }
     });
 
     QObject::connect(m_location_edit, &QLineEdit::returnPressed, this, &Tab::location_edit_return_pressed);

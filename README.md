@@ -28,9 +28,9 @@ This is a personal fork for my own enjoyment and learning :^)
 - [x] Inspect -> View
 - [ ] View: Document Info
 - [x] Go
-- [ ] Go: Back
-- [ ] Go: Forward
-- [ ] Go: Home
+- [x] Go: Back
+- [x] Go: Forward
+- [x] Go: Home
 - [x] Debug -> Options
 - [x] About
 - [ ] About: Help

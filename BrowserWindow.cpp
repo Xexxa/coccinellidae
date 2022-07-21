@@ -105,6 +105,9 @@ BrowserWindow::BrowserWindow(Core::EventLoop& event_loop)
     preferences_action->setIcon(QIcon(QString("%1/res/icons/16x16/settings.png").arg(s_serenity_resource_root.characters())));
     preferences_action->setShortcut(QKeySequence(QKeySequence::Preferences)); // "Ctrl+, (macOS)"
     edit_menu->addAction(preferences_action);
+    QObject::connect(preferences_action, &QAction::triggered, this, [this] {
+        new SettingsDialog(this);
+    });
 
     auto* view_menu = menuBar()->addMenu("&View");
 
@@ -141,22 +144,22 @@ BrowserWindow::BrowserWindow(Core::EventLoop& event_loop)
 
     auto* go_menu = menuBar()->addMenu("&Go");
 
-    auto* back_action = new QAction("Back");
-    back_action->setIcon(QIcon(QString("%1/res/icons/16x16/go-back.png").arg(s_serenity_resource_root.characters())));
-    back_action->setShortcut(QKeySequence(QKeySequence::Back)); // "Alt+Left"
-    back_action->setEnabled(false);
-    go_menu->addAction(back_action);
+    auto* go_back_action = new QAction("Back");
+    go_back_action->setIcon(QIcon(QString("%1/res/icons/16x16/go-back.png").arg(s_serenity_resource_root.characters())));
+    go_back_action->setShortcut(QKeySequence(QKeySequence::Back)); // "Alt+Left"
+    go_menu->addAction(go_back_action);
+    QObject::connect(go_back_action, &QAction::triggered, this, &BrowserWindow::go_back);
 
-    auto* forward_action = new QAction("Forward");
-    forward_action->setIcon(QIcon(QString("%1/res/icons/16x16/go-forward.png").arg(s_serenity_resource_root.characters())));
-    forward_action->setShortcut(QKeySequence(QKeySequence::Forward)); // "Alt+Right"
-    forward_action->setEnabled(false);
-    go_menu->addAction(forward_action);
+    auto* go_forward_action = new QAction("Forward");
+    go_forward_action->setIcon(QIcon(QString("%1/res/icons/16x16/go-forward.png").arg(s_serenity_resource_root.characters())));
+    go_forward_action->setShortcut(QKeySequence(QKeySequence::Forward)); // "Alt+Right"
+    go_menu->addAction(go_forward_action);
+    QObject::connect(go_forward_action, &QAction::triggered, this, &BrowserWindow::go_forward);
 
-    auto* home_action = new QAction("Home");
-    home_action->setIcon(QIcon(QString("%1/res/icons/16x16/go-home.png").arg(s_serenity_resource_root.characters())));
-    home_action->setEnabled(false);
-    go_menu->addAction(home_action);
+    auto* go_home_action = new QAction("Home");
+    go_home_action->setIcon(QIcon(QString("%1/res/icons/16x16/go-home.png").arg(s_serenity_resource_root.characters())));
+    go_menu->addAction(go_home_action);
+    QObject::connect(go_home_action, &QAction::triggered, this, &BrowserWindow::go_home);
 
     auto* options_menu = menuBar()->addMenu("&Options");
 
@@ -270,10 +273,6 @@ BrowserWindow::BrowserWindow(Core::EventLoop& event_loop)
     auto* about_action = new QAction("&About Coccinellidae");
     about_action->setIcon(QIcon(QString("../icons/16x16/app-coccinellidae.png")));
     help_menu->addAction(about_action);
-
-    QObject::connect(preferences_action, &QAction::triggered, this, [this] {
-        new SettingsDialog(this);
-    });
     QObject::connect(about_action, &QAction::triggered, this, &BrowserWindow::about);
 
     QObject::connect(new_tab_action, &QAction::triggered, this, &BrowserWindow::new_tab);
@@ -291,6 +290,21 @@ BrowserWindow::BrowserWindow(Core::EventLoop& event_loop)
     setCentralWidget(m_tabs_container);
     
 
+}
+
+void BrowserWindow::go_home()
+{
+    m_current_tab->home();
+}
+
+void BrowserWindow::go_back()
+{
+    m_current_tab->back();
+}
+
+void BrowserWindow::go_forward()
+{
+    m_current_tab->forward();
 }
 
 void BrowserWindow::repo()

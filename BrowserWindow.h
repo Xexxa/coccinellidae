@@ -38,6 +38,9 @@ public slots:
     void close_current_tab();
     void about();
     void repo();
+    void go_home();
+    void go_back();
+    void go_forward();
 
 private:
     void debug_request(String const& request, String const& argument = "");
