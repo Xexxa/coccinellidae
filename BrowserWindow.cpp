@@ -185,6 +185,17 @@ BrowserWindow::BrowserWindow(Core::EventLoop& event_loop)
     go_menu->addAction(go_home_action);
     QObject::connect(go_home_action, &QAction::triggered, this, &BrowserWindow::go_home);
 
+
+    auto* bookmarks_menu = menuBar()->addMenu("&Bookmarks");
+
+    auto* bookmarks_add_bookmark_action = new QAction("Add bookmark");
+    bookmarks_add_bookmark_action->setIcon(QIcon(QString("%1/res/icons/16x16/bookmark-filled.png").arg(s_serenity_resource_root.characters())));
+    bookmarks_add_bookmark_action->setShortcut(QKeySequence("Ctrl+D"));
+    bookmarks_add_bookmark_action->setEnabled(false);
+    bookmarks_menu->addAction(bookmarks_add_bookmark_action);
+
+    bookmarks_menu->addSeparator();
+
     auto* options_menu = menuBar()->addMenu("&Options");
 
     auto* dump_dom_tree_action = new QAction("Dump DOM Tree");
