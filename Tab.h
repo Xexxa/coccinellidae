@@ -56,6 +56,7 @@ private:
     OwnPtr<QAction> m_forward_action;
     OwnPtr<QAction> m_home_action;
     OwnPtr<QAction> m_reload_action;
+    OwnPtr<QAction> m_break_cache_action;
     OwnPtr<QAction> m_open_action;
     OwnPtr<QAction> m_print_action;
     OwnPtr<QAction> m_find_action;

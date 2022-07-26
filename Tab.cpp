@@ -53,6 +53,7 @@ Tab::Tab(QMainWindow* window)
     auto home_icon_path = QString("../icons/home.png");
     //auto reload_icon_path = QString("%1/res/icons/16x16/reload.png").arg(s_serenity_resource_root.characters());
     auto reload_icon_path = QString("../icons/reload.png");
+    auto break_cache_icon_path = QString("../icons/break-cache.png");
     auto open_icon_path = QString("../icons/open.png");
     auto print_icon_path = QString("../icons/print.png");
     auto find_icon_path = QString("../icons/find.png");
@@ -70,6 +71,8 @@ Tab::Tab(QMainWindow* window)
     m_reload_action = make<QAction>(QIcon(reload_icon_path), "Reload");
     m_reload_action->setShortcut(QKeySequence(QKeySequence::Refresh)); // "Ctrl+R"
     m_reload_action->setFont(button_text_font);
+    m_break_cache_action = make<QAction>(QIcon(break_cache_icon_path), "Break cache");
+    m_break_cache_action->setFont(button_text_font);
     m_open_action = make<QAction>(QIcon(open_icon_path), "Open");
     m_open_action->setEnabled(false);
     m_open_action->setFont(button_text_font);
@@ -94,6 +97,7 @@ Tab::Tab(QMainWindow* window)
     m_toolbar_buttons->addAction(m_forward_action);
     m_toolbar_buttons->addAction(m_home_action);
     m_toolbar_buttons->addAction(m_reload_action);
+    m_toolbar_buttons->addAction(m_break_cache_action);
     m_toolbar_buttons->addAction(m_open_action);
     m_toolbar_buttons->addAction(m_print_action);
     m_toolbar_buttons->addAction(m_find_action);
