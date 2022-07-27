@@ -9,6 +9,7 @@
 #include <QMainWindow>
 #include <QLineEdit>
 #include <QPushButton>
+#include <QComboBox>
 
 #pragma once
 
@@ -25,5 +26,6 @@ private:
     QFormLayout* m_layout;
     QPushButton* m_ok_button { nullptr };
     QLineEdit* m_homepage { nullptr };
+    QComboBox* m_search_engine { nullptr };
     QMainWindow* m_window { nullptr };
 };

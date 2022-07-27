@@ -209,19 +209,26 @@ void Tab::location_edit_return_pressed()
 void Tab::search_edit_return_pressed()
 {
     QString user_input = m_search_edit->text();
-    user_input.prepend("https://search.brave.com/search?q=");
 
-    /*
-     * Bing https://www.bing.com/search?q={}
-     * Brave https://search.brave.com/search?q={} (Default)
-     * Coccinellidae SerenityOS Search https://search.coccinellidae.serenityos.net/search?q=
-     * DuckDuckGo https://duckduckgo.com/?q={}
-     * FrogFind https://frogfind.com/?q={}
-     * GitHub https://github.com/search?q={}
-     * Google https://google.com/search?q={}
-     * Mojeek https://www.mojeek.com/search?q={}
-     * Yandex https://yandex.com/search/?text={}
-     */
+    if (s_settings->search_engine() == "bing") {
+        user_input.prepend("https://www.bing.com/search?q=");
+    } else if (s_settings->search_engine() == "brave") {
+        user_input.prepend("https://search.brave.com/search?q=");
+    } else if (s_settings->search_engine() == "coccinellidae-serenityos-search") {
+        user_input.prepend("https://search.coccinellidae.serenityos.net/search?q=");
+    } else if (s_settings->search_engine() == "duckduckgo") {
+        user_input.prepend("https://duckduckgo.com/?q=");
+    } else if (s_settings->search_engine() == "frogfind") {
+        user_input.prepend("https://frogfind.com/?q=");
+    } else if (s_settings->search_engine() == "github") {
+        user_input.prepend("https://github.com/search?q=");
+    } else if (s_settings->search_engine() == "google") {
+        user_input.prepend("https://google.com/search?q=");
+    } else if (s_settings->search_engine() == "mojeek") {
+        user_input.prepend("https://www.mojeek.com/search?q=");
+    } else if (s_settings->search_engine() == "yandex") {
+        user_input.prepend("https://yandex.com/search/?text=");
+    }
 
     navigate(user_input);
 }

@@ -20,6 +20,9 @@ public:
     QString homepage();
     void set_homepage(QString const& homepage);
 
+    QString search_engine();
+    void set_search_engine(QString const& search_engine);
+
 private:
     QSettings* m_qsettings;
 };

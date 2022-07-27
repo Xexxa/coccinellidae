@@ -8,6 +8,7 @@
 #include "SettingsDialog.h"
 #include <QCloseEvent>
 #include <QLabel>
+#include <QComboBox>
 
 extern Browser::Settings* s_settings;
 
@@ -16,10 +17,23 @@ SettingsDialog::SettingsDialog(QMainWindow* window)
 {
     m_layout = new QFormLayout;
     m_homepage = new QLineEdit;
+    m_search_engine = new QComboBox; // FIXME: Saved search engine should be preselected in QComboBox
     m_ok_button = new QPushButton("&Save");
 
     m_layout->addWidget(new QLabel("Homepage"));
     m_layout->addWidget(m_homepage);
+    m_layout->addWidget(new QLabel("Search engine"));
+    m_search_engine->addItem("Bing", QVariant("bing"));
+    m_search_engine->addItem("Brave (Default)", QVariant("brave"));
+    m_search_engine->addItem("Coccinellidae SerenityOS Search", QVariant("coccinellidae-serenityos-search"));
+    m_search_engine->addItem("DuckDuckGo", QVariant("duckduckgo"));
+    m_search_engine->addItem("FrogFind", QVariant("frogfind"));
+    m_search_engine->addItem("GitHub", QVariant("github"));
+    m_search_engine->addItem("Google", QVariant("google"));
+    m_search_engine->addItem("Mojeek", QVariant("mojeek"));
+    m_search_engine->addItem("Yandex", QVariant("yandex"));
+    m_layout->addWidget(m_search_engine);
+    // FIXME: Should add field for custom search engine.
     m_layout->addWidget(m_ok_button);
 
     m_homepage->setText(s_settings->homepage());
@@ -28,7 +42,7 @@ SettingsDialog::SettingsDialog(QMainWindow* window)
         close();
     });
     
-    setWindowTitle("Settings");
+    setWindowTitle("Preferences");
     setFixedWidth(300);
     setLayout(m_layout);
     show();
@@ -45,4 +59,6 @@ void SettingsDialog::save()
 {
     // FIXME: Validate data.
     s_settings->set_homepage(m_homepage->text());
+
+    s_settings->set_search_engine(m_search_engine->currentData().toString());
 }
