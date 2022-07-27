@@ -36,6 +36,7 @@ public slots:
     void forward();
     void home();
     void reload();
+    void break_cache();
 
 signals:
     void title_changed(int id, QString);

@@ -137,6 +137,7 @@ Tab::Tab(QMainWindow* window)
     QObject::connect(m_forward_action, &QAction::triggered, this, &Tab::forward);
     QObject::connect(m_home_action, &QAction::triggered, this, &Tab::home);
     QObject::connect(m_reload_action, &QAction::triggered, this, &Tab::reload);
+    QObject::connect(m_break_cache_action, &QAction::triggered, this, &Tab::break_cache);
     QObject::connect(focus_location_edit_action, &QAction::triggered, m_location_edit, qOverload<>(&QWidget::setFocus));
     QObject::connect(focus_location_edit_action, &QAction::triggered, m_location_edit, &QLineEdit::selectAll);
     QObject::connect(focus_search_edit_action, &QAction::triggered, m_search_edit, qOverload<>(&QWidget::setFocus));
@@ -179,6 +180,25 @@ void Tab::home()
 void Tab::reload()
 {
     view().reload();
+}
+
+void Tab::break_cache()
+{
+    // FIXME: this should probably use rand()
+    // FIXME: This should have a longer(more unique) query string
+    // that's modified, not appended. Something like
+    // coccinellidae-break-cache=rand()
+    // FIXME: this should use the current url, not the current text
+    // in the location-bar
+    QString new_url = m_location_edit->text();
+
+    if (!new_url.contains("?", Qt::CaseInsensitive)) {
+        new_url.append("?ccb=");
+    } else {
+        new_url.append("&ccb=");
+    }
+
+    navigate(new_url);
 }
 
 void Tab::location_edit_return_pressed()
