@@ -32,4 +32,4 @@ _A lot of work remains..._
 
 ## Screenshot Ladybird
 2022-07-16
-![Ladybird](meta/Screenshot_ladybird_2022-07-16.png)
+![Ladybird](meta/Screenshot_ladybird.png)
