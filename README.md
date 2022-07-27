@@ -1,9 +1,7 @@
 # Coccinellidae Web Browser
-The Coccinellidae web browser. The goal is to create a traditional browser UI (how things was before Chrome) drawing inspiration from Netscape 3.
+The Coccinellidae web browser, a fork of [Ladybird](https://github.com/awesomekling/ladybird). The goal is to create a general purpose browser with a traditional browser UI (how things was before Chrome) drawing inspiration from Netscape 3.
 
-This is a fork of [Ladybird](https://github.com/awesomekling/ladybird). Unlike Ladybird the goal here is to create a general purpose browser. (_"But for now, please treat ladybird as a debugging tool for LibWeb. :)"_ [\[1\]](https://github.com/awesomekling/ladybird/pull/20#issuecomment-1184351571) )
-
-This is a personal fork for my own enjoyment and learning :^)
+This is a personal fork for my own enjoyment and learning, but feel free to contribute :^)
 
 ### How does Coccinellidae differ from Ladybird?
 - [x] Qt5 support 👍
@@ -16,26 +14,7 @@ This is a personal fork for my own enjoyment and learning :^)
 - [x] Computers only, no plans supporting Android 🖥️
 
 ### Progress of functionality in menu:
-- [ ] File: Save As
-- [ ] File: Print
-- [x] Edit
-- [ ] Edit: Cut
-- [ ] Edit: Copy
-- [ ] Edit: Paste
-- [ ] Edit: Select All
-- [ ] Edit: Find...
-- [ ] Edit: Preferences
-- [x] Inspect -> View
-- [ ] View: Document Info
-- [x] Go
-- [x] Go: Back
-- [x] Go: Forward
-- [x] Go: Home
-- [x] Debug -> Options
-- [x] About
-- [ ] About: Help
-- [x] About: Repository
-- [x] About: About Coccinellidae
+There is a bunch of placeholder buttons and menu-items. There is also a bunch of working menu-items and buttons. :^)
 
 ### Build instructions
 Same as [Ladybird](https://github.com/awesomekling/ladybird) but using Qt5 & Qt5 Wayland (Ubuntu 20.04: `qt5-default` & `qtwayland5`)
@@ -46,11 +25,11 @@ It might build with Qt6, make sure to replace [CMakeLists.txt](CMakeLists.txt) w
 
 ![Icons](meta/icons.png)
 
-Commits are a bit of a mess, contributions are accepted.
-
-## Screenshot Coccinellidae 2022-07-16
+## Screenshot Coccinellidae
+2022-07-28
 _A lot of work remains..._
-![Coccinellidae](meta/Screenshot_coccinellidae_2022-07-16.png)
+![Coccinellidae](meta/Screenshot_coccinellidae.png)
 
-## Screenshot Ladybird 2022-07-16
+## Screenshot Ladybird
+2022-07-16
 ![Ladybird](meta/Screenshot_ladybird_2022-07-16.png)
