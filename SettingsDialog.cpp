@@ -30,6 +30,7 @@ SettingsDialog::SettingsDialog(QMainWindow* window)
     m_search_engine->addItem(QIcon(QString("../icons/16x16/website-frogfind.png")), "FrogFind", QVariant("frogfind"));
     m_search_engine->addItem(QIcon(QString("../icons/16x16/website-github.png")), "GitHub", QVariant("github"));
     m_search_engine->addItem(QIcon(QString("../icons/16x16/website-google.png")), "Google", QVariant("google"));
+    m_search_engine->addItem(QIcon(QString("../icons/16x16/website-metager.png")), "metaGer", QVariant("metager"));
     m_search_engine->addItem(QIcon(QString("../icons/16x16/website-mojeek.png")), "Mojeek", QVariant("mojeek"));
     m_search_engine->addItem(QIcon(QString("../icons/16x16/website-yandex.png")), "Yandex", QVariant("yandex"));
     m_layout->addWidget(m_search_engine);

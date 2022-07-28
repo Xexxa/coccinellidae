@@ -224,6 +224,8 @@ void Tab::search_edit_return_pressed()
         user_input.prepend("https://github.com/search?q=");
     } else if (s_settings->search_engine() == "google") {
         user_input.prepend("https://google.com/search?q=");
+    } else if (s_settings->search_engine() == "metager") {
+        user_input.prepend("https://metager.org/meta/meta.ger3?focus=web&eingabe=");
     } else if (s_settings->search_engine() == "mojeek") {
         user_input.prepend("https://www.mojeek.com/search?q=");
     } else if (s_settings->search_engine() == "yandex") {
