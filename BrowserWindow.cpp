@@ -352,24 +352,28 @@ void BrowserWindow::about()
     //QMessageBox::warning(&m_tabs_bar, "Coccinellidae", "All your base");
     QMessageBox msgBox;
     msgBox.setWindowTitle("About Coccinellidae");
-    msgBox.setText("Coccinellidae is based on Ladybird.\n"
-                   "\n"
-                   "License: BSD-2-Clause\n"
-                   "\n"
-                   "Coccinellidae copyright (c):\n"
-                   "2022, Gegga Thor <xexxa@serenityos.org>\n"
-                   "\n"
-                   "Ladybird copyright (c):\n"
-                   "2022, the SerenityOS developers.\n"
-                   "2022, Andreas Kling <kling@serenityos.org>\n"
-                   "2022, Matthew Costa <ucosty@gmail.com>\n"
-                   "2022, Dex♪ <dexes.ttp@gmail.com>\n"
-                   "2022, Matthew Costa <ucosty@gmail.com>\n"
-                   "2021, Tim Flynn <trflynn89@serenityos.org>\n"
-                   "2022, Filiph Sandström <filiph.sandstrom@filfatstudios.com>\n"
-                   "2021, Brandon Scott <xeon.productions@gmail.com>\n"
-                   "2020, Hunter Salyer <thefalsehonesty@gmail.com>\n"
-                   "2021, Sam Atkins <atkinssj@serenityos.org>");
+    msgBox.setIconPixmap(QPixmap("../icons/app-coccinellidae-80x80.png"));
+    msgBox.setTextFormat(Qt::RichText);
+    msgBox.setText("Coccinellidae is based on Ladybird.<br>"
+                   "<br>"
+                   "<a href='https://coccinellidae.serenityos.net/'>https://coccinellidae.serenityos.net/</a><br>"
+                   "<br>"
+                   "License: BSD-2-Clause<br>"
+                   "<br>"
+                   "Coccinellidae copyright (c):<br>"
+                   "2022, Gegga Thor &lt;xexxa@serenityos.org&gt;<br>"
+                   "<br>"
+                   "Ladybird copyright (c):<br>"
+                   "2022, the SerenityOS developers.<br>"
+                   "2022, Andreas Kling &lt;kling@serenityos.org&gt;<br>"
+                   "2022, Matthew Costa &lt;ucosty@gmail.com&gt;<br>"
+                   "2022, Dex♪ &lt;dexes.ttp@gmail.com&gt;<br>"
+                   "2022, Matthew Costa &lt;ucosty@gmail.com&gt;<br>"
+                   "2021, Tim Flynn &lt;trflynn89@serenityos.org&gt;<br>"
+                   "2022, Filiph Sandström &lt;filiph.sandstrom@filfatstudios.com&gt;<br>"
+                   "2021, Brandon Scott &lt;xeon.productions@gmail.com&gt;<br>"
+                   "2020, Hunter Salyer &lt;thefalsehonesty@gmail.com&gt;<br>"
+                   "2021, Sam Atkins &lt;atkinssj@serenityos.org&gt;");
     msgBox.exec();
 }
 

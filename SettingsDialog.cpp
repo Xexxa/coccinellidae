@@ -44,7 +44,7 @@ SettingsDialog::SettingsDialog(QMainWindow* window)
     });
     
     setWindowTitle("Preferences");
-    setFixedWidth(300);
+    setFixedWidth(400);
     setLayout(m_layout);
     show();
     setFocus();
