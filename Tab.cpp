@@ -158,7 +158,7 @@ void Tab::open()
 {
 
     m_open_file = QFileDialog::getOpenFileName(this,
-                                             tr("Open file in Coccinellidae"), "/", tr("All Files (*.*)"));
+                                             tr("Open file in Coccinellidae"), "/home/", tr("All Files (*.*)"));
 
     if(!m_open_file.isEmpty()&& !m_open_file.isNull()){
         navigate("file://"+m_open_file);
