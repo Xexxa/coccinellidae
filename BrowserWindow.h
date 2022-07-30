@@ -41,6 +41,7 @@ public slots:
     void go_home();
     void go_back();
     void go_forward();
+    void go_reload();
 
 private:
     void debug_request(String const& request, String const& argument = "");

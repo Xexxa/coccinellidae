@@ -185,6 +185,10 @@ BrowserWindow::BrowserWindow(Core::EventLoop& event_loop)
     go_menu->addAction(go_home_action);
     QObject::connect(go_home_action, &QAction::triggered, this, &BrowserWindow::go_home);
 
+    auto* go_reload_action = new QAction("Reload");
+    go_reload_action->setIcon(QIcon(QString("%1/res/icons/16x16/reload.png").arg(s_serenity_resource_root.characters())));
+    go_menu->addAction(go_reload_action);
+    QObject::connect(go_reload_action, &QAction::triggered, this, &BrowserWindow::go_reload);
 
     auto* bookmarks_menu = menuBar()->addMenu("&Bookmarks");
 
@@ -340,6 +344,11 @@ void BrowserWindow::go_back()
 void BrowserWindow::go_forward()
 {
     m_current_tab->forward();
+}
+
+void BrowserWindow::go_reload()
+{
+    m_current_tab->reload();
 }
 
 void BrowserWindow::repo()
