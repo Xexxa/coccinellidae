@@ -37,6 +37,7 @@ public slots:
     void home();
     void reload();
     void break_cache();
+    void open();
 
 signals:
     void title_changed(int id, QString);
@@ -52,6 +53,7 @@ private:
     QMainWindow* m_window { nullptr };
     Browser::History m_history;
     QString m_title;
+    QString m_open_file;
 
     OwnPtr<QAction> m_back_action;
     OwnPtr<QAction> m_forward_action;

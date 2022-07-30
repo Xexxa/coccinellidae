@@ -12,6 +12,7 @@
 #include <QCoreApplication>
 #include <QStatusBar>
 #include <QLabel>
+#include <QFileDialog>
 
 extern String s_serenity_resource_root;
 extern Browser::Settings* s_settings;
@@ -74,7 +75,6 @@ Tab::Tab(QMainWindow* window)
     m_break_cache_action = make<QAction>(QIcon(break_cache_icon_path), "Break cache");
     m_break_cache_action->setFont(button_text_font);
     m_open_action = make<QAction>(QIcon(open_icon_path), "Open");
-    m_open_action->setEnabled(false);
     m_open_action->setFont(button_text_font);
     m_print_action = make<QAction>(QIcon(print_icon_path), "Print");
     m_print_action->setEnabled(false);
@@ -138,6 +138,7 @@ Tab::Tab(QMainWindow* window)
     QObject::connect(m_home_action, &QAction::triggered, this, &Tab::home);
     QObject::connect(m_reload_action, &QAction::triggered, this, &Tab::reload);
     QObject::connect(m_break_cache_action, &QAction::triggered, this, &Tab::break_cache);
+    QObject::connect(m_open_action, &QAction::triggered, this, &Tab::open);
     QObject::connect(focus_location_edit_action, &QAction::triggered, m_location_edit, qOverload<>(&QWidget::setFocus));
     QObject::connect(focus_location_edit_action, &QAction::triggered, m_location_edit, &QLineEdit::selectAll);
     QObject::connect(focus_search_edit_action, &QAction::triggered, m_search_edit, qOverload<>(&QWidget::setFocus));
@@ -151,6 +152,14 @@ void Tab::navigate(QString url)
         !url.startsWith("file://", Qt::CaseInsensitive))
         url = "https://" + url;
     view().load(url.toUtf8().data());
+}
+
+void Tab::open()
+{
+
+    m_open_file = QFileDialog::getOpenFileName(this,
+                                             tr("Open file in Coccinellidae"), "/", tr("All Files (*.*)"));
+    navigate("file://"+m_open_file);
 }
 
 void Tab::back()
