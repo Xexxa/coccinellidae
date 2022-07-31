@@ -245,6 +245,8 @@ void Tab::search_edit_return_pressed()
         user_input.prepend("https://www.mojeek.com/search?q=");
     } else if (s_settings->search_engine() == "yandex") {
         user_input.prepend("https://yandex.com/search/?text=");
+    } else if (s_settings->search_engine() == "wikipedia") {
+        user_input.prepend("https://en.wikipedia.org/w/index.php?search=");
     } else if (s_settings->search_engine() == "wolframalpha") {
         user_input.prepend("https://www.wolframalpha.com/input?i=");
     }

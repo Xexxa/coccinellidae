@@ -34,6 +34,7 @@ SettingsDialog::SettingsDialog(QMainWindow* window)
     m_search_engine->addItem(QIcon(QString("../icons/16x16/website-metager.png")), "metaGer", QVariant("metager"));
     m_search_engine->addItem(QIcon(QString("../icons/16x16/website-mojeek.png")), "Mojeek", QVariant("mojeek"));
     m_search_engine->addItem(QIcon(QString("../icons/16x16/website-yandex.png")), "Yandex", QVariant("yandex"));
+    m_search_engine->addItem(QIcon(QString("../icons/16x16/website-wikipedia.png")), "Wikipedia", QVariant("wikipedia"));
     m_search_engine->addItem(QIcon(QString("../icons/16x16/website-wolframalpha.png")), "WolframAlpha", QVariant("wolframalpha"));
     m_layout->addWidget(m_search_engine);
     // FIXME: Should add field for custom search engine.
