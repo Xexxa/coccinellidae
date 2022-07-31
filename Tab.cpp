@@ -223,7 +223,9 @@ void Tab::search_edit_return_pressed()
 {
     QString user_input = m_search_edit->text();
 
-    if (s_settings->search_engine() == "bing") {
+    if (s_settings->search_engine() == "bananaslug") {
+        user_input.prepend("http://www.bananaslug.com/bsresults.php?Query=");
+    } else if (s_settings->search_engine() == "bing") {
         user_input.prepend("https://www.bing.com/search?q=");
     } else if (s_settings->search_engine() == "brave") {
         user_input.prepend("https://search.brave.com/search?q=");
@@ -243,6 +245,8 @@ void Tab::search_edit_return_pressed()
         user_input.prepend("https://www.mojeek.com/search?q=");
     } else if (s_settings->search_engine() == "yandex") {
         user_input.prepend("https://yandex.com/search/?text=");
+    } else if (s_settings->search_engine() == "wolframalpha") {
+        user_input.prepend("https://www.wolframalpha.com/input?i=");
     }
 
     navigate(user_input);

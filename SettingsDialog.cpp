@@ -23,9 +23,10 @@ SettingsDialog::SettingsDialog(QMainWindow* window)
     m_layout->addWidget(new QLabel("Homepage"));
     m_layout->addWidget(m_homepage);
     m_layout->addWidget(new QLabel("Search engine"));
+    m_search_engine->addItem(QIcon(QString("../icons/16x16/website-bananaslug.png")), "BananaSLUG", QVariant("bananaslug"));
     m_search_engine->addItem(QIcon(QString("../icons/16x16/website-bing.png")), "Bing", QVariant("bing"));
     m_search_engine->addItem(QIcon(QString("../icons/16x16/website-brave.png")), "Brave (Default)", QVariant("brave"));
-    m_search_engine->addItem(QIcon(QString("../icons/16x16/app-coccinellidae.png")), "Coccinellidae SerenityOS Search", QVariant("coccinellidae-serenityos-search"));
+    m_search_engine->addItem(QIcon(QString("../icons/16x16/app-coccinellidae.png")), "Coccinellidae Search", QVariant("coccinellidae-serenityos-search"));
     m_search_engine->addItem(QIcon(QString("../icons/16x16/website-duckduckgo.png")), "DuckDuckGo", QVariant("duckduckgo"));
     m_search_engine->addItem(QIcon(QString("../icons/16x16/website-frogfind.png")), "FrogFind", QVariant("frogfind"));
     m_search_engine->addItem(QIcon(QString("../icons/16x16/website-github.png")), "GitHub", QVariant("github"));
@@ -33,6 +34,7 @@ SettingsDialog::SettingsDialog(QMainWindow* window)
     m_search_engine->addItem(QIcon(QString("../icons/16x16/website-metager.png")), "metaGer", QVariant("metager"));
     m_search_engine->addItem(QIcon(QString("../icons/16x16/website-mojeek.png")), "Mojeek", QVariant("mojeek"));
     m_search_engine->addItem(QIcon(QString("../icons/16x16/website-yandex.png")), "Yandex", QVariant("yandex"));
+    m_search_engine->addItem(QIcon(QString("../icons/16x16/website-wolframalpha.png")), "WolframAlpha", QVariant("wolframalpha"));
     m_layout->addWidget(m_search_engine);
     // FIXME: Should add field for custom search engine.
     m_layout->addWidget(m_ok_button);
