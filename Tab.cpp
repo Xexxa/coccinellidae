@@ -106,6 +106,7 @@ Tab::Tab(QMainWindow* window)
     m_toolbar->addWidget(m_search_label);
     m_toolbar->addWidget(m_search_edit);
 
+    QObject::connect(m_view, &WebView::linkHovered, m_window->statusBar(), &QStatusBar::showMessage);
     QObject::connect(m_view, &WebView::linkUnhovered, m_window->statusBar(), &QStatusBar::clearMessage);
 
     QObject::connect(m_view, &WebView::loadStarted, [this](const URL& url) {

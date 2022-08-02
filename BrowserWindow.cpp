@@ -13,6 +13,7 @@
 #include <QAction>
 #include <QDialog>
 #include <QPlainTextEdit>
+#include <QStatusBar>
 #include <QMessageBox>
 
 extern String s_serenity_resource_root;
