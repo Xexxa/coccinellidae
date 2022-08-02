@@ -60,17 +60,14 @@ Tab::Tab(QMainWindow* window)
     auto find_icon_path = QString("../icons/find.png");
     auto stop_icon_path = QString("../icons/stop.png");
     m_back_action = make<QAction>(QIcon(back_icon_path), "Back");
-    m_back_action->setShortcut(QKeySequence(QKeySequence::Back)); // "Alt+Left"
     m_back_action->setFont(button_text_font);
     m_back_action->setEnabled(false);
     m_forward_action = make<QAction>(QIcon(forward_icon_path), "Forward");
-    m_forward_action->setShortcut(QKeySequence(QKeySequence::Forward)); // "Alt+Right"
     m_forward_action->setFont(button_text_font);
     m_forward_action->setEnabled(false);
     m_home_action = make<QAction>(QIcon(home_icon_path), "Home");
     m_home_action->setFont(button_text_font);
     m_reload_action = make<QAction>(QIcon(reload_icon_path), "Reload");
-    m_reload_action->setShortcut(QKeySequence(QKeySequence::Refresh)); // "Ctrl+R"
     m_reload_action->setFont(button_text_font);
     m_break_cache_action = make<QAction>(QIcon(break_cache_icon_path), "Break cache");
     m_break_cache_action->setFont(button_text_font);
@@ -83,6 +80,7 @@ Tab::Tab(QMainWindow* window)
     m_find_action->setEnabled(false);
     m_find_action->setFont(button_text_font);
     m_stop_action = make<QAction>(QIcon(stop_icon_path), "Stop");
+    m_stop_action->setShortcut(QKeySequence(QKeySequence::Cancel)); // "Escape"
     m_stop_action->setEnabled(false);
     m_stop_action->setFont(button_text_font);
 

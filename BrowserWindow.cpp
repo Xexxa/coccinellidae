@@ -41,6 +41,11 @@ BrowserWindow::BrowserWindow(Core::EventLoop& event_loop)
     close_current_tab_action->setShortcut(QKeySequence(QKeySequence::Close));
     menu->addAction(close_current_tab_action);
 
+    auto* open_file_action = new QAction("&Open File...");
+    open_file_action->setIcon(QIcon(QString("%1/res/icons/16x16/filetype-folder-open.png").arg(s_serenity_resource_root.characters())));
+    open_file_action->setShortcut(QKeySequence(QKeySequence::Open)); // "Ctrl+O"
+    menu->addAction(open_file_action);
+
     menu->addSeparator();
 
     auto* save_as_action = new QAction("&Save As");
@@ -143,6 +148,7 @@ BrowserWindow::BrowserWindow(Core::EventLoop& event_loop)
 
     auto* document_info_action = new QAction("Document &Info");
     document_info_action->setIcon(QIcon(QString("%1/res/icons/16x16/app-text-editor.png").arg(s_serenity_resource_root.characters())));
+    document_info_action->setShortcut(QKeySequence("Ctrl+I"));
     document_info_action->setEnabled(false);
     view_menu->addAction(document_info_action);
 
@@ -182,11 +188,13 @@ BrowserWindow::BrowserWindow(Core::EventLoop& event_loop)
 
     auto* go_home_action = new QAction("Home");
     go_home_action->setIcon(QIcon(QString("%1/res/icons/16x16/go-home.png").arg(s_serenity_resource_root.characters())));
+    go_home_action->setShortcut(QKeySequence("Alt+Home")); // "Alt+Home"
     go_menu->addAction(go_home_action);
     QObject::connect(go_home_action, &QAction::triggered, this, &BrowserWindow::go_home);
 
     auto* go_reload_action = new QAction("Reload");
     go_reload_action->setIcon(QIcon(QString("%1/res/icons/16x16/reload.png").arg(s_serenity_resource_root.characters())));
+    go_reload_action->setShortcut(QKeySequence(QKeySequence::Refresh)); // "F5"
     go_menu->addAction(go_reload_action);
     QObject::connect(go_reload_action, &QAction::triggered, this, &BrowserWindow::go_reload);
 
@@ -204,6 +212,7 @@ BrowserWindow::BrowserWindow(Core::EventLoop& event_loop)
 
     auto* dump_dom_tree_action = new QAction("Dump DOM Tree");
     dump_dom_tree_action->setIcon(QIcon(QString("%1/res/icons/browser/dom-tree.png").arg(s_serenity_resource_root.characters())));
+    dump_dom_tree_action->setShortcut(QKeySequence("Shift+Alt+1"));
     options_menu->addAction(dump_dom_tree_action);
     QObject::connect(dump_dom_tree_action, &QAction::triggered, this, [this] {
         debug_request("dump-dom-tree");
@@ -211,6 +220,7 @@ BrowserWindow::BrowserWindow(Core::EventLoop& event_loop)
 
     auto* dump_layout_tree_action = new QAction("Dump Layout Tree");
     dump_layout_tree_action->setIcon(QIcon(QString("%1/res/icons/16x16/layout.png").arg(s_serenity_resource_root.characters())));
+    dump_layout_tree_action->setShortcut(QKeySequence("Shift+Alt+2"));
     options_menu->addAction(dump_layout_tree_action);
     QObject::connect(dump_layout_tree_action, &QAction::triggered, this, [this] {
         debug_request("dump-layout-tree");
@@ -218,6 +228,7 @@ BrowserWindow::BrowserWindow(Core::EventLoop& event_loop)
 
     auto* dump_stacking_context_tree_action = new QAction("Dump Stacking Context Tree");
     dump_stacking_context_tree_action->setIcon(QIcon(QString("%1/res/icons/16x16/layers.png").arg(s_serenity_resource_root.characters())));
+    dump_stacking_context_tree_action->setShortcut(QKeySequence("Shift+Alt+3"));
     options_menu->addAction(dump_stacking_context_tree_action);
     QObject::connect(dump_stacking_context_tree_action, &QAction::triggered, this, [this] {
         debug_request("dump-stacking-context-tree");
@@ -225,6 +236,7 @@ BrowserWindow::BrowserWindow(Core::EventLoop& event_loop)
 
     auto* dump_style_sheets_action = new QAction("Dump Style Sheets");
     dump_style_sheets_action->setIcon(QIcon(QString("%1/res/icons/16x16/filetype-css.png").arg(s_serenity_resource_root.characters())));
+    dump_style_sheets_action->setShortcut(QKeySequence("Shift+Alt+4"));
     options_menu->addAction(dump_style_sheets_action);
     QObject::connect(dump_style_sheets_action, &QAction::triggered, this, [this] {
         debug_request("dump-style-sheets");
@@ -232,6 +244,7 @@ BrowserWindow::BrowserWindow(Core::EventLoop& event_loop)
 
     auto* dump_history_action = new QAction("Dump History");
     dump_history_action->setIcon(QIcon(QString("%1/res/icons/16x16/history.png").arg(s_serenity_resource_root.characters())));
+    dump_history_action->setShortcut(QKeySequence("Shift+Alt+5"));
     options_menu->addAction(dump_history_action);
     QObject::connect(dump_history_action, &QAction::triggered, this, [this] {
         debug_request("dump-history");
@@ -239,6 +252,7 @@ BrowserWindow::BrowserWindow(Core::EventLoop& event_loop)
 
     auto* dump_cookies_action = new QAction("Dump Cookies");
     dump_cookies_action->setIcon(QIcon(QString("%1/res/icons/browser/cookie.png").arg(s_serenity_resource_root.characters())));
+    dump_cookies_action->setShortcut(QKeySequence("Shift+Alt+6"));
     options_menu->addAction(dump_cookies_action);
     QObject::connect(dump_cookies_action, &QAction::triggered, this, [this] {
         debug_request("dump-cookies");
@@ -246,6 +260,7 @@ BrowserWindow::BrowserWindow(Core::EventLoop& event_loop)
 
     auto* dump_local_storage_action = new QAction("Dump Local Storage");
     dump_local_storage_action->setIcon(QIcon(QString("%1/res/icons/browser/local-storage.png").arg(s_serenity_resource_root.characters())));
+    dump_local_storage_action->setShortcut(QKeySequence("Shift+Alt+7"));
     options_menu->addAction(dump_local_storage_action);
     QObject::connect(dump_local_storage_action, &QAction::triggered, this, [this] {
         debug_request("dump-local-storage");
@@ -253,7 +268,7 @@ BrowserWindow::BrowserWindow(Core::EventLoop& event_loop)
 
     options_menu->addSeparator();
 
-    auto* show_line_box_borders_action = new QAction("Show Line Box Borders");
+    auto* show_line_box_borders_action = new QAction("Show Line &Box Borders");
     show_line_box_borders_action->setCheckable(true);
     options_menu->addAction(show_line_box_borders_action);
     QObject::connect(show_line_box_borders_action, &QAction::triggered, this, [this, show_line_box_borders_action] {
@@ -263,14 +278,14 @@ BrowserWindow::BrowserWindow(Core::EventLoop& event_loop)
 
     options_menu->addSeparator();
 
-    auto* collect_garbage_action = new QAction("Collect Garbage!!");
+    auto* collect_garbage_action = new QAction("Collect &Garbage");
     collect_garbage_action->setIcon(QIcon(QString("%1/res/icons/16x16/trash-can.png").arg(s_serenity_resource_root.characters())));
     options_menu->addAction(collect_garbage_action);
     QObject::connect(collect_garbage_action, &QAction::triggered, this, [this] {
         debug_request("collect-garbage");
     });
 
-    auto* clear_cache_action = new QAction("Clear Cache");
+    auto* clear_cache_action = new QAction("Clear &Cache");
     clear_cache_action->setIcon(QIcon(QString("%1/res/icons/browser/clear-cache.png").arg(s_serenity_resource_root.characters())));
     options_menu->addAction(clear_cache_action);
     QObject::connect(clear_cache_action, &QAction::triggered, this, [this] {
@@ -279,7 +294,7 @@ BrowserWindow::BrowserWindow(Core::EventLoop& event_loop)
 
     options_menu->addSeparator();
 
-    auto* enable_scripting_action = new QAction("Enable Scripting");
+    auto* enable_scripting_action = new QAction("Enable &Scripting");
     enable_scripting_action->setCheckable(true);
     enable_scripting_action->setChecked(true);
     options_menu->addAction(enable_scripting_action);
@@ -288,7 +303,7 @@ BrowserWindow::BrowserWindow(Core::EventLoop& event_loop)
         debug_request("scripting", state ? "on" : "off");
     });
 
-    auto* enable_same_origin_policy_action = new QAction("Enable Same-Origin Policy");
+    auto* enable_same_origin_policy_action = new QAction("Enable Same-&Origin Policy");
     enable_same_origin_policy_action->setCheckable(true);
     options_menu->addAction(enable_same_origin_policy_action);
     QObject::connect(enable_same_origin_policy_action, &QAction::triggered, this, [this, enable_same_origin_policy_action] {
@@ -316,6 +331,7 @@ BrowserWindow::BrowserWindow(Core::EventLoop& event_loop)
 
     QObject::connect(new_tab_action, &QAction::triggered, this, &BrowserWindow::new_tab);
     QObject::connect(quit_action, &QAction::triggered, this, &QMainWindow::close);
+    QObject::connect(open_file_action, &QAction::triggered, this, &BrowserWindow::open_file);
     QObject::connect(m_tabs_container, &QTabWidget::currentChanged, [this](int index) {
         setWindowTitle(QString("%1 - Coccinellidae").arg(m_tabs_container->tabText(index)));
         setWindowIcon(m_tabs_container->tabIcon(index));
@@ -329,6 +345,11 @@ BrowserWindow::BrowserWindow(Core::EventLoop& event_loop)
     setCentralWidget(m_tabs_container);
     
 
+}
+
+void BrowserWindow::open_file()
+{
+    m_current_tab->open();
 }
 
 void BrowserWindow::go_home()
