@@ -172,6 +172,10 @@ BrowserWindow::BrowserWindow(Core::EventLoop& event_loop)
     full_screen_action->setShortcut(QKeySequence(QKeySequence::FullScreen)); // "F11"
     full_screen_action->setEnabled(false);
     view_menu->addAction(full_screen_action);
+    QObject::connect(full_screen_action, &QAction::triggered, this, [this] {
+        showFullScreen();
+    });
+
 
     auto* go_menu = menuBar()->addMenu("&Go");
 
