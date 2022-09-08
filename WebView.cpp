@@ -187,8 +187,11 @@ public:
             return;
 
         m_interpreter = interpreter;
-        m_console_client = make<Coccinellidae::ConsoleClient>(interpreter->global_object().console(), interpreter, m_view);
-        interpreter->global_object().console().set_client(*m_console_client.ptr());
+
+        auto& realm = interpreter->realm();
+        auto& global_object = realm.global_object();
+        m_console_client = make<Coccinellidae::ConsoleClient>(global_object.console(), interpreter, m_view);
+        global_object.console().set_client(*m_console_client.ptr());
     }
 
     virtual void page_did_change_selection() override
