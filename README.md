@@ -1,3 +1,8 @@
+## "Archived", please use [Ladybird](https://github.com/SerenityOS/ladybird)
+
+This was a fun project when Ladybird updated seldom and rejected a lot of PRs, now when Ladybird is part of the main repo and update more often I don't see a point trying to keep this repo up to date, especially when I have more useful things to do in the SerenityOS project : 
+
+
 # Coccinellidae Web Browser
 The Coccinellidae web browser, a fork of [Ladybird](https://github.com/awesomekling/ladybird). The goal is to create a general purpose browser with a traditional browser UI (how things was before Chrome) drawing inspiration from Netscape 3.
 
